@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ios | Fengyu Cai > Try to reinvent the wheels]]></title>
+  <link href="http://fengyucai.github.io/blog/categories/ios/atom.xml" rel="self"/>
+  <link href="http://fengyucai.github.io/"/>
+  <updated>2014-07-28T04:07:59+08:00</updated>
+  <id>http://fengyucai.github.io/</id>
+  <author>
+    <name><![CDATA[Fengyu]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[探索UITableViewCell的重用机制]]></title>
+    <link href="http://fengyucai.github.io/blog/2013/12/13/tan-suo-uitableviewcellde-zhong-yong-ji-zhi/"/>
+    <updated>2013-12-13T12:53:00+08:00</updated>
+    <id>http://fengyucai.github.io/blog/2013/12/13/tan-suo-uitableviewcellde-zhong-yong-ji-zhi</id>
+    <content type="html"><![CDATA[<p><img src="/images/reuseCell.png"></p>
+
+<p>为了充分利用iOS设备有限的内存，UITableView这个API的设计巧妙地利用了这样一个事实：
+尽管一个table可能需要显示成千上万个cell的数据, 但在有限的屏幕空间上，用户只能看见当前显示的cell。因此，UITableView采用按需创建cell的策略，随着table的滑动，前面不再可见的cell会被加入一个缓存队列, 当后面新的一行数据需要显示时，可以重用队列中的旧的cell内存来存放数据，如果队列为空，则分配内存新创建一个UITableViewCell对象。</p>
+
+<p>假设一个UITableView有100000行数据，实际上需要创建的UITableViewCell对象有多少个呢？
+下面的代码让您更直观地理解cell的重用机制。您可以自己创建一个UITableViewController
+并实现相应的方法来验证。</p>
+
+<p>首先在MyViewController.h中声明一个cellCount属性。
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">@interface</span> <span class="nc">MyViewController</span> : <span class="bp">UITableViewController</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">@property</span> <span class="p">(</span><span class="k">nonatomic</span><span class="p">,</span> <span class="k">strong</span><span class="p">)</span> <span class="bp">NSMutableArray</span> <span class="o">*</span><span class="n">myData</span><span class="p">;</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="k">nonatomic</span><span class="p">)</span> <span class="bp">NSUInteger</span> <span class="n">cellCount</span><span class="p">;</span> <span class="c1">// 记录新创建的cell的数量&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">@end</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>然后在MyViewController.m中实现如下方法：</p>
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">import</span> <span class="err">“</span><span class="n">MyViewController</span><span class="p">.</span><span class="n">h</span><span class="o">&amp;</span><span class="err">#</span><span class="mi">8221</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">@implementation</span> <span class="nc">MyViewController</span>
+</span><span class='line'><span class="k">@synthesize</span> <span class="n">myData</span><span class="p">,</span> <span class="n">cellCount</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">ul</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">viewDidLoad</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="p">[</span><span class="nb">super</span> <span class="n">viewDidLoad</span><span class="p">];</span>
+</span><span class='line'>  <span class="n">cellCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">myData</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">NSMutableArray</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">for</span> <span class="p">(</span><span class="bp">NSUInteger</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="mi">100000</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="bp">NSString</span> <span class="o">*</span><span class="n">dataString</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSString</span> <span class="nl">stringWithFormat</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Item</span> <span class="o">%</span><span class="n">lu</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="n">i</span><span class="p">];</span>
+</span><span class='line'>      <span class="p">[</span><span class="n">myData</span> <span class="nl">addObject</span><span class="p">:</span><span class="n">dataString</span><span class="p">];</span>
+</span><span class='line'>  <span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="n">NSLog</span><span class="p">(@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">The</span> <span class="n">array</span> <span class="n">contains</span> <span class="o">%</span><span class="n">lu</span> <span class="n">items</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="p">[</span><span class="n">myData</span> <span class="n">count</span><span class="p">]);</span>
+</span><span class='line'><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">ul</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;-</span><span class="p">(</span><span class="bp">NSInteger</span><span class="p">)</span><span class="nl">tableView</span><span class="p">:(</span><span class="bp">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="n">tableView</span>
+</span><span class='line'>    <span class="nl">numberOfRowsInSection</span><span class="p">:(</span><span class="bp">NSInteger</span><span class="p">)</span><span class="n">section</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="p">[</span><span class="n">myData</span> <span class="n">count</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">ul</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;</span><span class="p">(</span><span class="bp">UITableViewCell</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nl">tableView</span><span class="p">:(</span><span class="bp">UITableView</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="n">tableView</span>
+</span><span class='line'>  <span class="nl">cellForRowAtIndexPath</span><span class="p">:(</span><span class="bp">NSIndexPath</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="n">indexPath</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">static</span> <span class="bp">NSString</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">cellIndentifier</span> <span class="o">=</span> <span class="p">@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Cell</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;;</span>
+</span><span class='line'>  <span class="bp">UITableViewCell</span> <span class="o">*</span><span class="n">cell</span> <span class="o">=</span> <span class="p">[</span><span class="n">tableView</span> <span class="nl">dequeueReusableCellWithIdentifier</span><span class="p">:@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Cell</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;];</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">cell</span> <span class="o">==</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">cell</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UITableViewCell</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithStyle</span><span class="p">:</span><span class="n">UITableViewCellStyleDefault</span>
+</span><span class='line'>                                     <span class="nl">reuseIdentifier</span><span class="p">:</span><span class="n">cellIndentifier</span><span class="p">];</span>
+</span><span class='line'>      <span class="o">++</span><span class="nb">self</span><span class="p">.</span><span class="n">cellCount</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="n">cell</span><span class="p">.</span><span class="n">textLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">myData</span> <span class="nl">objectAtIndex</span><span class="p">:</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">];</span>
+</span><span class='line'>  <span class="n">NSLog</span><span class="p">(@</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">There</span> <span class="n">are</span> <span class="n">actually</span> <span class="o">%</span><span class="n">lu</span> <span class="n">new</span> <span class="n">cells</span> <span class="n">now</span><span class="err">”</span><span class="p">,</span> <span class="n">cellCount</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">cell</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></li>
+</ul>
+
+
+<p>假设一个tableView视图最多只能完整显示10个cell, 以上代码的输出如图：
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>The array contains 100000 items
+</span><span class='line'>There are actually 1 new cells now
+</span><span class='line'>There are actually 2 new cells now
+</span><span class='line'>There are actually 3 new cells now
+</span><span class='line'>There are actually 4 new cells now
+</span><span class='line'>There are actually 5 new cells now
+</span><span class='line'>There are actually 6 new cells now
+</span><span class='line'>There are actually 7 new cells now
+</span><span class='line'>There are actually 8 new cells now
+</span><span class='line'>There are actually 9 new cells now
+</span><span class='line'>There are actually 10 new cells now
+</span><span class='line'>There are actually 11 new cells now
+</span><span class='line'>There are actually 11 new cells now
+</span><span class='line'>……</span></code></pre></td></tr></table></div></figure>
+我们观察到无论怎样向下滑动tableView，至多只有11个cell被创建！最开始分配的cell内存被后来的数据行反复利用。
+这种机制的确很好地利用了内存空间。
+为什么是11个而不是10个呢？如下图所示，在刚开始向下滑动的某一瞬间, 第1行数据Item0的cell仍有部分可见，
+此时缓存队列为空，为了显示第11行，UITableView创建了第11个cell对象。这也是最后一个新建的cell。
+当第1行数据完全不可见时，第1个cell入队列, 接下来需要显示的第12行则重用了队列中第一个cell的空间。
+依此类推，无论table中有多少行数据，无论接下来如何滑动，每一个数据行都可以循环利用这11个cell对象的内存。</p>
+
+<p><img src="/images/tableView.png"></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[iOS 7中的topLayoutGuide与bottomLayoutGuide]]></title>
+    <link href="http://fengyucai.github.io/blog/2013/11/15/ios7layoutguide/"/>
+    <updated>2013-11-15T18:52:00+08:00</updated>
+    <id>http://fengyucai.github.io/blog/2013/11/15/ios7layoutguide</id>
+    <content type="html"><![CDATA[<p>iOS界面顶部和底部的UI的通常由某种UIKit Bars构成, 比如状态栏(status bar),
+导航条(navigation bar), 工具栏(tool bar)和标签栏(tab bar)。开发中常常需要
+在顶部和底部bars之间的区域内布置一些UI元素。在iOS 6以及更早的版本中，一个
+UIViewController会自动调整自身view的大小来适配这块中间区域。然而在iOS 7中，
+一个UIViewController的view会在竖直方向上扩展至整个屏幕的边界，可能导致原来
+view的子视图被顶部或底部的bars所覆盖(如下图)。</p>
+
+<p><img src="/images/beforeguide.png"></p>
+
+<p>为了解决这种新布局带来的问题，iOS 7的UIViewController增加了两个新的属性(property):
+topLayoutGuide和bottomLayoutGuide。topLayoutGuide和bottomLayoutGuide实际上
+位于顶部和底部的两个透明的视图，这两个视图的默认高度正是bars的高度，可以作为子视图嵌入
+某个root view。下面以topLayoutGuide为例, 结合Auto layout, 我们可以通过编写代码
+解决上述问题。</p>
+
+<p>示例代码如下(其中的vc代表某个navigation controller的rootViewController):</p>
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>    <span class="bp">UIView</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">v1</span> <span class="o">=</span> <span class="n">vc</span><span class="p">.</span><span class="n">view</span><span class="p">;</span>
+</span><span class='line'>    <span class="bp">UIView</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">v2</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIView</span> <span class="n">new</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">v2</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="n">redColor</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">v1</span> <span class="nl">addSubview</span><span class="p">:</span><span class="n">v2</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="c1">// 关闭Autoresizing, 开启Auto layout</span>
+</span><span class='line'><span class="n">v2</span><span class="p">.</span><span class="n">translatesAutoresizingMaskIntoConstraints</span> <span class="o">=</span> <span class="nb">NO</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 获取vc的topLayoutGuide视图</span>
+</span><span class='line'><span class="bp">UIView</span> <span class="o">*</span><span class="n">tlg</span> <span class="o">=</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="n">vc</span><span class="p">.</span><span class="n">topLayoutGuide</span><span class="p">;</span>
+</span><span class='line'><span class="bp">NSDictionary</span> <span class="o">*</span><span class="n">vs</span> <span class="o">=</span> <span class="n">NSDictionaryOfVariableBindings</span><span class="p">(</span><span class="n">v2</span><span class="p">,</span> <span class="n">tlg</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 使子视图v2的宽度与v1相同</span>
+</span><span class='line'><span class="p">[</span><span class="n">v1</span> <span class="nl">addConstraints</span><span class="p">:</span>
+</span><span class='line'><span class="p">[</span><span class="bp">NSLayoutConstraint</span> <span class="nl">constraintsWithVisualFormat</span><span class="p">:</span><span class="s">@&quot;H:|[v2]|&quot;</span>
+</span><span class='line'>    <span class="nl">options</span><span class="p">:</span><span class="mi">0</span> <span class="nl">metrics</span><span class="p">:</span><span class="nb">nil</span> <span class="nl">views</span><span class="p">:</span><span class="n">vs</span><span class="p">]];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 把v2放置在topLayoutGuide的下方，并设置v2高度为20</span>
+</span><span class='line'><span class="p">[</span><span class="n">v1</span> <span class="nl">addConstraints</span><span class="p">:</span>
+</span><span class='line'><span class="p">[</span><span class="bp">NSLayoutConstraint</span> <span class="nl">constraintsWithVisualFormat</span><span class="p">:</span><span class="s">@&quot;V:[tlg][v2(20)]&quot;</span>
+</span><span class='line'><span class="nl">options</span><span class="p">:</span><span class="mi">0</span> <span class="nl">metrics</span><span class="p">:</span><span class="nb">nil</span> <span class="nl">views</span><span class="p">:</span><span class="n">vs</span><span class="p">]];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>在模拟器运行的得到的效果图如下:</p>
+
+<p><img src="/images/afterguide.png"></p>
+
+<p>当然，您也可以在nib编辑器中通过调整各视图的constraints来达到同样的目的。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[iOS学习总结1: Views]]></title>
+    <link href="http://fengyucai.github.io/blog/2013/11/02/iosxue-xi-zong-jie-1-views/"/>
+    <updated>2013-11-02T21:32:00+08:00</updated>
+    <id>http://fengyucai.github.io/blog/2013/11/02/iosxue-xi-zong-jie-1-views</id>
+    <content type="html"><![CDATA[<p>视图（View) 是UIView类或者UIView子类的实例。一个视图能够将自身绘制到界面的某个矩形区域内。
+我们可以通过在nib编辑器中拖动控件来绘制视图，也可以部分或者全部通过代码来实现。自定义view的
+代码可以控制视图出现(appear)，消失(disappear)，移动(move), 改变大小（resize) 甚至显示
+一些动画效果(animation)。同时UIView也是UIResponder的子类，这意味着Views可以响应来自用户
+的触摸事件，比如轻敲(tap) , 滑动(swipe), 长按(long press)等等。</p>
+
+<p>应用中的Views是通过视图层次结构(view hierarchy)组织起来的。一个视图可以有多个子视图(subviews)，
+但只能有一个直接父视图(superview)。当一个视图从界面中移除时，其子视图也会随着移除。一个视图移动,
+其子视图也会跟着移动。视图层次结构是响应对象链(responder chain)的基础。</p>
+
+<h2>UIWindow</h2>
+
+<p>UIWindow实例位于视图层次结构的最顶部，UIWindow也是UIView的子类。UIWindow实例的
+主要功能是为Views提供显示空间以及向其他Views分发事件。一般情况下应用只有唯一一个UIWindow实例，
+它在app启动时创建并占据整个屏幕, 然后在程序的整个生命周期(lifetime)都一直存在。
+App Delegate 类拥有一个window属性(property)，指向这个UIWindow实例。当应用启动时，
+main.m文件中的UIApplicationMain被main函数调用，创建并初始化App Delegate实例。app
+delegate实例也将一直存在于应用的整个生命周期里。在app delegate中创建UIWindow的代码示例如下：
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="bp">UIWindow</span><span class="o">*</span> <span class="n">w</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIWindow</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:[[</span><span class="bp">UIScreen</span> <span class="n">mainScreen</span><span class="p">]</span> <span class="n">bounds</span><span class="p">]];</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h2>子视图与父视图</h2>
+
+<p>OS X 10.5之前，如果A视图不是B视图的子视图，则A视图的任何部分都不能出现在B视图的区域内。
+Apple在OS X 10.5后采用更加灵活的规则，在iOS中允许视图之间互相覆盖(overlap), 无论
+是否有父子关系。如图：</p>
+
+<p><img src="/images/overlap.png"></p>
+
+<p>因为overlap有多种可能的情形，我们并无法直接观察出以上三个视图的继承关系。事实上，
+中间的视图和左边的视图是兄弟视图(siblings)，而右边视图是中间视图的子视图。
+如果views是通过nib文件创建的，我们可以通过nib编辑器的outline区域查看它们之间的关系。
+如图:</p>
+
+<p><img src="/images/views.png"></p>
+
+<p>另外，假设someView是根视图，则可以通过以下代码在控制台输出视图的层次结构：
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSLog</span><span class="p">(@</span><span class="err">“</span><span class="o">%</span><span class="p">@</span><span class="err">“</span><span class="p">,</span> <span class="p">[</span><span class="n">someView</span> <span class="nl">performSelector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">recursiveDescription</span><span class="p">)]);</span>
+</span></code></pre></td></tr></table></div></figure>
+addSubview:方法使得一个视图成为另一视图的子视图，当addSubview:被调用时，传入参数的
+视图对象会成为父视图subviews数组的最后一个元素，也就是最后一个绘制在屏幕上的子视图，
+覆盖在所有子视图的最顶层。 为了更好地理解overlap的规则和视图之间的关系，我们可以新建
+一个iOS Empty Application 项目, 通过以下代码实现上面三个视图的效果。</p>
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="bp">UIApplication</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didFinishLaunchingWithOptions:</span><span class="p">(</span><span class="bp">NSDictionary</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">launchOptions</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">window</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIWindow</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:[[</span><span class="bp">UIScreen</span> <span class="n">mainScreen</span><span class="p">]</span> <span class="n">bounds</span><span class="p">]];</span>
+</span><span class='line'>    <span class="c1">// Override point for customization after application launch.</span>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="p">.</span><span class="n">rootViewController</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIViewController</span> <span class="n">new</span><span class="p">];</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="bp">UIView</span> <span class="o">*</span><span class="n">mainView</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="p">.</span><span class="n">rootViewController</span><span class="p">.</span><span class="n">view</span><span class="p">;</span>
+</span><span class='line'><span class="bp">UIView</span> <span class="o">*</span><span class="n">v1</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">113</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">132</span><span class="p">,</span> <span class="mi">194</span><span class="p">)];</span>
+</span><span class='line'><span class="n">v1</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="nl">colorWithRed</span><span class="p">:</span><span class="mi">1</span> <span class="nl">green</span><span class="p">:</span><span class="mf">0.4</span> <span class="nl">blue</span><span class="p">:</span><span class="mi">1</span> <span class="nl">alpha</span><span class="p">:</span><span class="mi">1</span><span class="p">];</span>
+</span><span class='line'><span class="bp">UIView</span> <span class="o">*</span><span class="n">v2</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">41</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">132</span><span class="p">,</span> <span class="mi">194</span><span class="p">)];</span>
+</span><span class='line'><span class="n">v2</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="nl">colorWithRed</span><span class="p">:</span><span class="mf">0.5</span> <span class="nl">green</span><span class="p">:</span><span class="mi">1</span> <span class="nl">blue</span><span class="p">:</span><span class="mi">0</span> <span class="nl">alpha</span><span class="p">:</span><span class="mi">1</span><span class="p">];</span>
+</span><span class='line'><span class="bp">UIView</span> <span class="o">*</span><span class="n">v3</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">43</span><span class="p">,</span> <span class="mi">197</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">230</span><span class="p">)];</span>
+</span><span class='line'><span class="n">v3</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="nl">colorWithRed</span><span class="p">:</span><span class="mi">1</span> <span class="nl">green</span><span class="p">:</span><span class="mi">0</span> <span class="nl">blue</span><span class="p">:</span><span class="mi">0</span> <span class="nl">alpha</span><span class="p">:</span><span class="mi">1</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">[</span><span class="n">mainView</span> <span class="nl">addSubview</span><span class="p">:</span><span class="n">v1</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">v1</span> <span class="nl">addSubview</span><span class="p">:</span><span class="n">v2</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">mainView</span> <span class="nl">addSubview</span><span class="p">:</span><span class="n">v3</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="n">whiteColor</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">window</span> <span class="n">makeKeyAndVisible</span><span class="p">];</span>
+</span><span class='line'><span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h2>未完待续</h2>
+]]></content>
+  </entry>
+  
+</feed>
