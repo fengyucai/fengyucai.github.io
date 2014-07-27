@@ -1,0 +1,22 @@
+---
+layout: post
+title: "微妙的 iOS MVC"
+date: 2013-12-08 20:23
+comments: true
+categories: architecture
+---
+{% img  /images/mvc.png %}
+
+
+Cocoa的设计遵循了MVC的原则，然而相比其他的SDK，models, views和controllers三层之间的界限
+并不明显。比如在Rails, Django一类的Web开发框架下，各个模块的代码被清晰地分离至不同的目录中。
+但在iOS开发中, 您可以通过Interface Builder 创建views,  也可以选择在controllers模块内手写views的代码。
+此外，views的数据往往来自models, 然而”models”可能来自Core Data管理的SQLite数据库，也可能
+分布在ViewControllers一个NSArray的实例变量中，甚至可能在 viewDidLoad 方法中被动态地创建。
+这种相对灵活的方式可能导致controllers中的代码变得复杂而冗长。特别是在一些需要大量读写数据库
+和频繁访问远程网络的应用中，controllers模块常常变得难以维护。一个最佳实践就是把controllers中
+请求逻辑(request logic)相关的代码分离出来，放到一个独立的”Store” 模块内，再由store来访问models
+的数据，从而MVC模式进化成了MVCS模式。
+
+因此，MVC只是一个概念上的框架，而不是一堆严格分类的目录和文件。接触了iOS后我对MVC
+的设计模式有了更一步的理解，在平时的开发中也能更自然地运用MVC的方式来思考。
