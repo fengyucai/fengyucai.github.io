@@ -13,7 +13,7 @@ footer: true
 ###　　喜欢Apple的产品，做过iOS开发。
 ###　　熟悉C++, 学过Python和PHP, 对Haskell和Lisp有所了解。
 ###　　喜欢啃各种大部头的书, 兴趣太广泛而时间精力有限。
-###　　希望以后专注于编译原理与后台开发。
+###　　以后希望专注于编译原理与后台开发。
  
 ## Contact
 * mail: fenyucai@gmail.com
