@@ -16,7 +16,7 @@ footer: true
 ###　　希望以后专注于编译原理与后台开发。
  
 ## Contact
-* 　mail: fenyucai@gmail.com
-* 　twitter: @fengyucai
+　　* mail: fenyucai@gmail.com
+　　* twitter: @fengyucai
 
 
