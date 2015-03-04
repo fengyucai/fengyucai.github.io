@@ -17,3 +17,4 @@ group :development do
 end
 
 gem 'sinatra', '~> 1.4.2'
+gem 'safe_yaml', '~> 1.0.4'
