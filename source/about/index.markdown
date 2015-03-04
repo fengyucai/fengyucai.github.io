@@ -13,7 +13,6 @@ footer: true
 ###　　Marvel脑残粉，课余爱好美剧和电影，偶尔看美漫。
 ###　　近期目标是通过练习“造轮子”来进一步学习编译器开发，操作系统原理和数据库实现。
  
-
 ## Contact
 * mail: i@caifengyu.net
 * twitter: @fengyucai
