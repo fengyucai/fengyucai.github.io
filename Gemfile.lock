@@ -104,6 +104,7 @@ DEPENDENCIES
   rb-fsevent (~> 0.9)
   rdiscount (~> 2.0)
   rubypants (~> 0.2.0)
+  safe_yaml (~> 1.0.4)
   sass-globbing (~> 1.0.0)
   sinatra (~> 1.4.2)
   stringex (~> 1.4.0)
