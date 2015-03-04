@@ -7,16 +7,15 @@ sharing: true
 footer: true
 ---
 
-###　　广外英语专业在校生一枚。
-###　　曾经迷恋过一款叫做Trickster Online的韩国游戏长达六年。
-###　　2011年开始接触计算机编程, 发现了自己热爱的领域。
-###　　熟悉C++, 学过Python和PHP, 对Haskell和Scheme有所了解。
-###　　喜欢Apple的产品，做过iOS开发。
-###　　喜欢啃各种大部头的书, 兴趣太广泛而时间精力有限。
-###　　目前专注于学习编译技术与后台开发。
+###　　广外英语专业大四学生一枚。
+###　　2011年开始接触计算机编程, 从此走上不断挖坑填坑的自学之路。
+###　　喜欢Apple的产品，在校期间学过iOS开发。
+###　　Marvel脑残粉，课余爱好美剧和电影，偶尔看美漫。
+###　　近期目标是通过练习“造轮子”来进一步学习编译器开发，操作系统原理和数据库实现。
  
+
 ## Contact
-* mail: fenyucai@gmail.com
+* mail: i@caifengyu.net
 * twitter: @fengyucai
 
 
