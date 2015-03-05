@@ -1,0 +1,169 @@
+--- 
+layout: post
+title: "最简洁的红黑树实现"
+date: 2014-2-16 23:30
+comments: true
+categories: DataStructures
+---
+
+{% img /images/linkedlist.png %}
+最近看学习CLRS “红黑树”一章的时候遇到了麻烦：虽然作者给出了详细的介绍和严谨的证明，
+但是看完后仍然是一头雾水，而且400多行伪代码也是不小的记忆负担。无意中发现刘未鹏的博客
+文章[知其所以然（以算法学习为例）](http://mindhacks.cn/2008/07/07/the-importance-of-knowing-why/)
+也提到了这个问题，于是找来红黑树发明者Sedgewick的PPT讲解，终于醍醐灌顶：原来红黑树
+背后的idea是2-3-4树，最简单又相对高效的实现是Sedgewick讲的Left-leaning RB Tree。
+PPT戳这里[LLRB](http://fengyucai.github.io/images/RedBlack.pdf)
+
+我用C++实现的红黑树如下，只有150来行代码。如有错误欢迎指出：
+{% codeblock lang:cpp %}
+#ifndef RED_BLACK_BST
+#define RED_BLACK_BST
+#define BLACK false
+#define RED true
+template <typename T>
+class RedBlackBST {
+public:
+    RedBlackBST() : root(nullptr) { }
+    RedBlackBST(const RedBlackBST & rhs) { root = clone(rhs.root); }
+    ~RedBlackBST() { makeEmpty(root); }
+    void insert(const T & key) { root = insert(root, key); }
+    void remove(const T & key) { root = remove(root, key); }
+    bool empty() { return root == nullptr; }
+private:
+    struct Node {
+        T key;
+        Node *left;
+        Node *right;
+        bool color;
+        Node(const T & k, Node* l=nullptr, Node* r=nullptr, bool c=BLACK):
+        key(k), left(l), right(r), color(c) { }
+    };
+
+    Node *root;
+
+    bool isRed(Node* x) { return x ? x->color : false; }
+
+    Node* rotateLeft(Node* h) {
+        Node *x = h->right;
+        h->right = x->left;
+        x->left = h;
+        x->color = h->color;
+        h->color = RED;
+        return x;
+    }
+
+    Node* rotateRight(Node* h) {
+        Node *x = h->left;
+        h->left = x->right;
+        x->right = h;
+        x->color = h->color;
+        h->color = RED;
+        return x;
+    }
+    // Split 4-node
+    void colorFlip(Node* h) {
+        h->color = ! (h->color);
+        h->left->color = !(h->left->color);
+        h->right->color = !(h->right->color);
+    }
+
+    Node* fixUp(Node* h) {
+        if (isRed(h->right))
+            h = rotateLeft(h);
+        if (isRed(h->left) && isRed(h->left->left))
+            h = rotateRight(h);
+        if (isRed(h->left) && isRed(h->right))
+            colorFlip(h);
+        return h;
+    }
+    // 2-3 tree insert
+    Node* insert(Node* h, const T & key) {
+        if (h == nullptr)
+            return new Node(key, nullptr, nullptr, RED);
+        if (key < h->key)
+            h->left = insert(h->left, key);
+        else if (key > h->key)
+            h->right = insert(h->right, key);
+        else 
+            ;
+        return fixUp(h);
+    }
+    // Deletion
+    Node* remove(Node* h, const T & key) {
+        if (key < h->key) {
+           if (!isRed(h->left) && !isRed(h->left->left))
+               h = moveRedLeft(h);
+           h->left = remove(h->left, key);
+        } else {
+            if (isRed(h->left)) h = rotateRight(h);
+            if (key == h->key && h->right == nullptr) {
+                delete h;
+                return nullptr;
+            }
+
+            if (!isRed(h->right) && !isRed(h->right->left))
+                h = moveRedRight(h);
+
+            if (key == h->key) {
+                h->key = minimum(h->right)->key;
+                h->right = removeMin(h->right);
+            } else 
+                h->right = remove(h->right, key);
+        }
+        return fixUp(h);
+    }
+   // Helper functions
+    Node* moveRedRight(Node* h) {
+        colorFlip(h);
+        if (isRed(h->left->left)) {
+            h = rotateRight(h);
+            colorFlip(h);
+        }
+        return h;
+    }
+
+    Node* moveRedLeft(Node* h) {
+        colorFlip(h);
+        if (isRed(h->right->left)) {
+            h->right = rotateRight(h->right);
+            h = rotateLeft(h);
+            colorFlip(h);
+        }
+        return h;
+    }
+    
+    Node* removeMin(Node* h) {
+       if (h->left == nullptr) {
+           delete h;
+           return nullptr;
+       }
+       if (!isRed(h->left) && !isRed(h->left->left))
+           h = moveRedLeft(h);
+       h->left = removeMin(h->left);
+       return fixUp(h);
+    }
+
+    Node* minimum(Node* x) {
+        while (x->left != nullptr)
+            x = x->left;
+        return x;
+    }
+
+    Node* clone(Node* t) {
+       if (t == nullptr)
+           return nullptr;
+       else
+           return new Node(t->key, clone(t->left), clone(t->right), t->color);
+    }
+
+    void makeEmpty(Node* & t) {
+        if (t != nullptr) {
+            makeEmpty(t->left);
+            makeEmpty(t->right);
+            delete t;
+        }
+        t = nullptr;
+    }
+};
+#endif
+{% endcodeblock %}
