@@ -3,7 +3,7 @@ layout: post
 title: "关于Linked List的奇技淫巧"
 date: 2014-1-05 21:16
 comments: true
-categories: Data Structures
+categories: DataStructures
 ---
 
 {% img /images/linkedlist.png %}
