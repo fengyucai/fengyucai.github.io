@@ -1,0 +1,72 @@
+---
+layout: post
+title: "OS X 下配置Apache/PHP/MySQL本地测试环境"
+date: 2012-03-05 1:07
+comments: true
+categories: web
+---
+Mac OS X 已经自带了Apache和PHP运行环境，因此只需经过一系列简单的配置，就可以在你的本地机器上运行和测试PHP脚本。
+
+##启动Apache服务器
+
+打开终端(terminal), 输入 sudo apachectl start ，再输入你的密码Apache就开始运行了。
+Apache的默认根目录位于 /Library/WebServer/Documents/ 下。打开浏览器并输入http://localhost 可以看到一个显示文本为
+"It works"的HTML页面。在终端中输入sudo apachectl -v 可查看Apache的版本信息，比如我的系统OS X 10.8.4中：
+sudo apachectl -v
+Server version: Apache/2.2.22 (Unix)
+Server built:   Dec  9 2012 18:57:18
+此外，为了安全起见，可以设置只允许localhost和127.0.0.1访问根目录/Library/WebServer/Documents
+在终端中输入 sudo vi /etc/apache2/httpd.conf , 注释掉 "Allow for all" 并新增加两行如下：
+{% codeblock %}
+<Directory "/Library/WebServer/Documents"> 
+...
+ #
+ # Controls who can get stuff from this server. 
+ # 
+  	 Order allow,deny
+	#Allow from all 
+	 Allow from 127.0.0.1
+	 Allow from localhost 
+ </Directory>
+{% endcodeblock %}
+
+##配置PHP
+
+1. 继续在httpconf文本中搜索字符串 #LoadModule php5_module libexec/apache2/libphp5.so 
+    并去掉前面的井号 保存后退出。
+2. 在终端中输入:
+
+{% codeblock %}
+ sudo cp  /etc/php.ini.default  /etc/php.ini
+ sudo vi  /etc/php.ini
+{% endcodeblock %}
+
+
+3. 输入sudo apachectl restart 来重启Apache, PHP就可以使用了。
+
+4. 现在把你的PHP脚本放在/Library/WebServer/Documents目录下即可进行测试。
+比如该目录下有一个名为info.php的文件，就可以通过在浏览器中输入[http://localhost/info.php](http://localhost/info.php)来访问。
+
+
+##安装MySQL
+Mac OS X没有内置MySQL，所以需要自己手动安装。
+
+1.访问[dev.mysql.com](http://dev.mysql.com/downloads/mysql/)下载MySQL。
+
+2.点击打开dmg，会发现里面有4个文件。首先点击并安装MySQL主安装包mysql-5.5.27-osx10.6-x86_64.pkg。
+
+3.安装第2个文件MySQLStartupItem.pkg，MySQL就会自动在开机时启动。
+
+4.安装第3个文件MySQL.prefPane，就会在“系统设置偏好”中新建一个MySQL的图标，可以通过它来控制MySQL的开启和关闭。
+5.在终端中输入“sudo vi /etc/bashrc”，在bash配置文件中添加以下3个别名（注：修改完毕需要重启终端命令才会生效）：
+{% codeblock %}
+#mysql
+alias mysqlstart='sudo /Library/StartupItems/MySQLCOM/MySQLCOM restart'
+alias mysql='/usr/local/mysql/bin/mysql'
+alias mysqladmin='/usr/local/mysql/bin/mysqladmin'
+{% endcodeblock %}
+这样就可以在终端中通过简单的命令进行相应的操作。
+最后, 修改php.ini：
+{% codeblock %}
+mysql.default_socket = /tmp/mysql.sock
+{% endcodeblock %}
