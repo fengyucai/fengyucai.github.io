@@ -1,0 +1,151 @@
+<div class="highlight"><pre><span class="cp">#ifndef RED_BLACK_BST</span>
+<span class="cp">#define RED_BLACK_BST</span>
+<span class="cp">#define BLACK false</span>
+<span class="cp">#define RED true</span>
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">RedBlackBST</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">RedBlackBST</span><span class="p">()</span> <span class="o">:</span> <span class="n">root</span><span class="p">(</span><span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+    <span class="n">RedBlackBST</span><span class="p">(</span><span class="k">const</span> <span class="n">RedBlackBST</span> <span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span> <span class="p">{</span> <span class="n">root</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">rhs</span><span class="p">.</span><span class="n">root</span><span class="p">);</span> <span class="p">}</span>
+    <span class="o">~</span><span class="n">RedBlackBST</span><span class="p">()</span> <span class="p">{</span> <span class="n">makeEmpty</span><span class="p">(</span><span class="n">root</span><span class="p">);</span> <span class="p">}</span>
+    <span class="kt">void</span> <span class="n">insert</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span> <span class="n">root</span> <span class="o">=</span> <span class="n">insert</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span> <span class="p">}</span>
+    <span class="kt">void</span> <span class="n">remove</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span> <span class="n">root</span> <span class="o">=</span> <span class="n">remove</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span> <span class="p">}</span>
+    <span class="kt">bool</span> <span class="n">empty</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">root</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">;</span> <span class="p">}</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="k">struct</span> <span class="n">Node</span> <span class="p">{</span>
+        <span class="n">T</span> <span class="n">key</span><span class="p">;</span>
+        <span class="n">Node</span> <span class="o">*</span><span class="n">left</span><span class="p">;</span>
+        <span class="n">Node</span> <span class="o">*</span><span class="n">right</span><span class="p">;</span>
+        <span class="kt">bool</span> <span class="n">color</span><span class="p">;</span>
+        <span class="n">Node</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span> <span class="n">k</span><span class="p">,</span> <span class="n">Node</span><span class="o">*</span> <span class="n">l</span><span class="o">=</span><span class="k">nullptr</span><span class="p">,</span> <span class="n">Node</span><span class="o">*</span> <span class="n">r</span><span class="o">=</span><span class="k">nullptr</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">c</span><span class="o">=</span><span class="n">BLACK</span><span class="p">)</span><span class="o">:</span>
+        <span class="n">key</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">left</span><span class="p">(</span><span class="n">l</span><span class="p">),</span> <span class="n">right</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">color</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+    <span class="p">};</span>
+
+    <span class="n">Node</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span>
+
+    <span class="kt">bool</span> <span class="nf">isRed</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span> <span class="o">?</span> <span class="n">x</span><span class="o">-&gt;</span><span class="nl">color</span> <span class="p">:</span> <span class="nb">false</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="n">Node</span><span class="o">*</span> <span class="nf">rotateLeft</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">h</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Node</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="n">h</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+        <span class="n">h</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+        <span class="n">x</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">h</span><span class="p">;</span>
+        <span class="n">x</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="n">h</span><span class="o">-&gt;</span><span class="n">color</span><span class="p">;</span>
+        <span class="n">h</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="n">RED</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">Node</span><span class="o">*</span> <span class="nf">rotateRight</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">h</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Node</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="n">h</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+        <span class="n">h</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+        <span class="n">x</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">h</span><span class="p">;</span>
+        <span class="n">x</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="n">h</span><span class="o">-&gt;</span><span class="n">color</span><span class="p">;</span>
+        <span class="n">h</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="n">RED</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// Split 4-node</span>
+    <span class="kt">void</span> <span class="nf">colorFlip</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">h</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">h</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="o">!</span> <span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">color</span><span class="p">);</span>
+        <span class="n">h</span><span class="o">-&gt;</span><span class="n">left</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="o">!</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">left</span><span class="o">-&gt;</span><span class="n">color</span><span class="p">);</span>
+        <span class="n">h</span><span class="o">-&gt;</span><span class="n">right</span><span class="o">-&gt;</span><span class="n">color</span> <span class="o">=</span> <span class="o">!</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">right</span><span class="o">-&gt;</span><span class="n">color</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">Node</span><span class="o">*</span> <span class="nf">fixUp</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">h</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">isRed</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">))</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">rotateLeft</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">isRed</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">isRed</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">left</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">))</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">rotateRight</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">isRed</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">isRed</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">))</span>
+            <span class="n">colorFlip</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">h</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// 2-3 tree insert</span>
+    <span class="n">Node</span><span class="o">*</span> <span class="nf">insert</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">h</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">h</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">,</span> <span class="n">RED</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">h</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span>
+            <span class="n">h</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">insert</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">h</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span>
+            <span class="n">h</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">insert</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+        <span class="k">else</span> 
+            <span class="p">;</span>
+        <span class="k">return</span> <span class="n">fixUp</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">// Deletion</span>
+    <span class="n">Node</span><span class="o">*</span> <span class="nf">remove</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">h</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">h</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+           <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isRed</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">isRed</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">left</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">))</span>
+               <span class="n">h</span> <span class="o">=</span> <span class="n">moveRedLeft</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
+           <span class="n">h</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">remove</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">isRed</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">))</span> <span class="n">h</span> <span class="o">=</span> <span class="n">rotateRight</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">==</span> <span class="n">h</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">&amp;&amp;</span> <span class="n">h</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">delete</span> <span class="n">h</span><span class="p">;</span>
+                <span class="k">return</span> <span class="k">nullptr</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isRed</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">isRed</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">right</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">))</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">moveRedRight</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">==</span> <span class="n">h</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">h</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">=</span> <span class="n">minimum</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">;</span>
+                <span class="n">h</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">removeMin</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> 
+                <span class="n">h</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">remove</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">fixUp</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
+    <span class="p">}</span>
+   <span class="c1">// Helper functions</span>
+    <span class="n">Node</span><span class="o">*</span> <span class="nf">moveRedRight</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">h</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">colorFlip</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">isRed</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">left</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">rotateRight</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
+            <span class="n">colorFlip</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">h</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">Node</span><span class="o">*</span> <span class="nf">moveRedLeft</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">h</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">colorFlip</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">isRed</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">right</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">h</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">rotateRight</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">rotateLeft</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
+            <span class="n">colorFlip</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">h</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="n">Node</span><span class="o">*</span> <span class="nf">removeMin</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">h</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+           <span class="k">delete</span> <span class="n">h</span><span class="p">;</span>
+           <span class="k">return</span> <span class="k">nullptr</span><span class="p">;</span>
+       <span class="p">}</span>
+       <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isRed</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">isRed</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">left</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">))</span>
+           <span class="n">h</span> <span class="o">=</span> <span class="n">moveRedLeft</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
+       <span class="n">h</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">removeMin</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+       <span class="k">return</span> <span class="n">fixUp</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">Node</span><span class="o">*</span> <span class="nf">minimum</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">Node</span><span class="o">*</span> <span class="nf">clone</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">t</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span>
+           <span class="k">return</span> <span class="k">nullptr</span><span class="p">;</span>
+       <span class="k">else</span>
+           <span class="k">return</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">,</span> <span class="n">clone</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">),</span> <span class="n">clone</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">),</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">color</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="nf">makeEmpty</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="o">&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">t</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">makeEmpty</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+            <span class="n">makeEmpty</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+            <span class="k">delete</span> <span class="n">t</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="cp">#endif</span>
+</pre></div>

@@ -1,0 +1,8 @@
+<div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">connect_a_next_to_b_advance_a</span><span class="p">(</span><span class="n">shared_ptr</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">a</span><span class="p">,</span>
+                                   <span class="k">const</span> <span class="n">shared_ptr</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">shared_ptr</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">a</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+    <span class="n">a</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>

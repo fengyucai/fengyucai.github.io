@@ -1,0 +1,10 @@
+<div class="highlight"><pre><span class="n">slow</span> <span class="o">=</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">L</span><span class="p">,</span> <span class="n">pre_slow</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">fast</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">fast</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">pre_slow</span> <span class="o">=</span> <span class="n">slow</span><span class="p">;</span>
+		<span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+		<span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
