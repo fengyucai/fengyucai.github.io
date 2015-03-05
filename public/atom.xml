@@ -4,7 +4,7 @@
   <title><![CDATA[Fengyu Cai]]></title>
   <link href="http://fengyucai.github.io/atom.xml" rel="self"/>
   <link href="http://fengyucai.github.io/"/>
-  <updated>2015-03-05T18:54:00+08:00</updated>
+  <updated>2015-03-05T20:47:30+08:00</updated>
   <id>http://fengyucai.github.io/</id>
   <author>
     <name><![CDATA[Fengyu]]></name>
@@ -12,6 +12,70 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[编译原理入门学习小结]]></title>
+    <link href="http://fengyucai.github.io/blog/2014/07/31/compiler/"/>
+    <updated>2014-07-31T19:50:00+08:00</updated>
+    <id>http://fengyucai.github.io/blog/2014/07/31/compiler</id>
+    <content type="html"><![CDATA[<p><img src="http://fengyucai.github.io/images/loudenbook.png"></p>
+
+<p>首先，编译原理对程序员而言无疑是非常重要的，有句话说得好：If you don&rsquo;t understand how
+compiler works, you don&rsquo;t really know how computer works. 且不说编译技术在各种
+软件中的广泛应用，入门的学习经历中已经让我获益匪浅。在尝试手写scanner和parser过程中温习了
+trees，hashtable等重要的数据结构, 又掌握了更多编程语言的细节，学习code generation的过程
+可以把以前学过的计算机体系结构，操作系统等知识联系起来，设计grammer和自动机的时候又遇到了
+语言学课程上熟悉的Noam Chomsky。此外，编译器构建本身是一项大工程，会引导你去思考如何编写
+可维护的代码。</p>
+
+<p>然后，请允许我来安利一下<a href="http://www.amazon.com/Compiler-Construction-Principles-Kenneth-Louden/dp/0534939724">Compiler Construction: Principles and Practice</a>这本书。
+一本出色的入门书可以节省你许多时间，比起偏理论的Dragon Book，Louden的这本书真正做到了
+兼顾理论和实践。作者引导你动手实现一个叫做TINY迷你的编译器，感兴趣的读者还可以在此基础上
+继续开发新的特性。</p>
+
+<p>最后附上这本书在Amazon上的书评：
+<img src="http://fengyucai.github.io/images/AmazonReview.png"></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[一些值得阅读的开源C代码]]></title>
+    <link href="http://fengyucai.github.io/blog/2014/05/24/sourcecode/"/>
+    <updated>2014-05-24T00:36:00+08:00</updated>
+    <id>http://fengyucai.github.io/blog/2014/05/24/sourcecode</id>
+    <content type="html"><![CDATA[<p>先挖坑，有空再慢慢拜读。</p>
+
+<ol>
+<li><p>Webbench
+一个在linux下使用的网站压测工具。<a href="http://home.tiscali.cz/~cz210552/webbench.html">Web Bench Homepage</a></p></li>
+<li><p>Tinyhttpd
+一个轻量级的Http Server  <a href="http://sourceforge.net/projects/tinyhttpd/">Tiny HTTPd</a></p></li>
+<li><p>CMockery
+Google发布的C单元测试框架。
+<a href="http://code.google.com/p/cmockery/downloads/list">cmockery - A lightweight library to simplify and generalize the process of writing unit tests for C applications.</a></p></li>
+<li><p>cJSON
+C语言实现的一个JSON编解码器。<a href="http://sourceforge.net/projects/cjson/">cJSON</a></p></li>
+<li><p>Libev
+一个开源的事件驱动库。<a href="http://software.schmorp.de/pkg/libev.html">Libev</a></p></li>
+<li><p>Memcached
+一个高性能的分布式内存对象缓存系统。<a href="http://memcached.org/">memcached - a distributed memory object caching system</a></p></li>
+<li><p>Lua
+<a href="http://www.lua.org/">The Programming Language Lua</a></p></li>
+<li><p>SQLite
+一个开源的嵌入式关系数据库。<a href="http://www.sqlite.org/">SQLite Home Page</a></p></li>
+<li><p>Redis
+用ANSI C 编写的开源数据结构服务器。<a href="http://redis.io/">Redis</a></p></li>
+<li><p>Nginx
+一个高性能的 HTTP 和反向代理服务器。<a href="http://nginx.org/en/download.html">Nginx</a></p></li>
+<li><p>UNIXv6
+适合学习的操作系统内核源代码。<a href="http://minnie.tuhs.org/cgi-bin/utree.pl?file=V6">UNIXv6</a></p></li>
+<li><p>NETBSD
+一个免费的，可移植性的 UNIX-like 操作系统。
+<a href="http://www.netbsd.org/">The NetBSD Project</a></p></li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[最简洁的红黑树实现]]></title>

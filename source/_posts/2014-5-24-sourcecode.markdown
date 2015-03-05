@@ -2,7 +2,7 @@
 layout: post
 title: "一些值得阅读的开源C代码"
 date: 2014-5-24 00:36
-comments: true
+comments: opensource 
 categories: DataStructures
 ---
 

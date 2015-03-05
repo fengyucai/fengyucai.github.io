@@ -50,7 +50,7 @@
 <h2>Contact</h2>
 
 <ul>
-<li>mail: <a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#111;&#58;&#105;&#x40;&#x63;&#97;&#105;&#102;&#x65;&#110;&#103;&#121;&#117;&#x2e;&#x6e;&#x65;&#x74;">&#105;&#x40;&#x63;&#97;&#105;&#102;&#x65;&#x6e;&#x67;&#121;&#117;&#x2e;&#110;&#x65;&#x74;</a></li>
+<li>mail: <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#x69;&#x40;&#99;&#97;&#x69;&#x66;&#x65;&#x6e;&#103;&#121;&#117;&#x2e;&#x6e;&#101;&#116;">&#x69;&#64;&#x63;&#97;&#x69;&#102;&#x65;&#x6e;&#103;&#121;&#117;&#46;&#110;&#101;&#x74;</a></li>
 <li>twitter: @fengyucai</li>
 </ul>
 
@@ -80,7 +80,25 @@
 </div>
 <p>&copy; 2015 Fengyu</p>
 <div class="clearfix"></div></footer>
-	
+	<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+	(function($){
+		$('.entry-content').each(function(i){
+			var _i = i;
+			$(this).find('img').each(function(){
+				var alt = $(this).attr('alt');
+
+				if (alt == '' || typeof alt == 'undefined'){
+					$(this).wrap('<a href="'+$(this).attr('src')+'" class="fancybox" rel="gallery'+_i+'" />');
+				} else {
+					$(this).after('<span class="caption">'+alt+'</span>').wrap('<a href="'+$(this).attr('src')+'" class="fancybox" title="'+alt+'" rel="gallery'+_i+'" />');
+				}
+			});
+		});
+		$('.fancybox').fancybox();
+	})(jQuery);
+</script>
+
 
 
 
