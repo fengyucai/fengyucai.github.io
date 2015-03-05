@@ -6,7 +6,6 @@ comments: true
 categories: DataStructures
 ---
 
-{% img /images/linkedlist.png %}
 最近看学习CLRS “红黑树”一章的时候遇到了麻烦：虽然作者给出了详细的介绍和严谨的证明，
 但是看完后仍然是一头雾水，而且400多行伪代码也是不小的记忆负担。无意中发现刘未鹏的博客
 文章[知其所以然（以算法学习为例）](http://mindhacks.cn/2008/07/07/the-importance-of-knowing-why/)
