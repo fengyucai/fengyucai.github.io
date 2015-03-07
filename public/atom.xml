@@ -4,7 +4,7 @@
   <title><![CDATA[Fengyu Cai]]></title>
   <link href="http://fengyucai.github.io/atom.xml" rel="self"/>
   <link href="http://fengyucai.github.io/"/>
-  <updated>2015-03-08T02:23:58+08:00</updated>
+  <updated>2015-03-08T02:31:26+08:00</updated>
   <id>http://fengyucai.github.io/</id>
   <author>
     <name><![CDATA[Fengyu]]></name>
@@ -373,7 +373,7 @@ really know how computer works. 且不说编译技术在各种软件中的
 过程中回顾了trees，hashtable等重要的数据结构, 又掌握了更多编程语言的细节，
 学习code generation的过程可以把以前学过的计算机体系结构，操作系统等知识
 联系起来，设计grammer和自动机的时候又遇到了语言学课程上熟悉的Noam Chomsky。
-此外，编译器构建本身是一项大工程，会引导你去思考如何编写可维护的代码。</p>
+此外，编译器构建本身是一项较大的工程，会引导你去思考如何编写可维护的代码。</p>
 
 <p>然后，请允许我来安利一下<a href="http://www.amazon.com/Compiler-Construction-Principles-Kenneth-Louden/dp/0534939724">Compiler Construction: Principles and Practice</a>这本书。
 一本出色的入门书可以节省你许多时间，比起偏理论的Dragon Book，Louden的这本书真正做到了兼顾理论和实践。作者引导你动手实现一个叫做TINY的迷你编译器，感兴趣的读者还可以在此基础上继续开发新的特性。
