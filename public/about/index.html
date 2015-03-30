@@ -17,8 +17,6 @@
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<script src="//ajax.useso.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	
-
-	
 </head>
 
 
@@ -51,7 +49,7 @@
 <h2>Contact</h2>
 
 <ul>
-<li>mail: <a href="&#x6d;&#x61;&#105;&#108;&#x74;&#111;&#x3a;&#x69;&#x40;&#99;&#97;&#x69;&#x66;&#101;&#x6e;&#x67;&#121;&#117;&#46;&#x6e;&#x65;&#x74;">&#x69;&#x40;&#99;&#x61;&#105;&#102;&#x65;&#110;&#x67;&#121;&#x75;&#x2e;&#110;&#101;&#116;</a></li>
+<li>mail: <a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#105;&#x40;&#99;&#x61;&#x69;&#102;&#101;&#110;&#103;&#x79;&#x75;&#46;&#110;&#101;&#x74;">&#105;&#x40;&#99;&#97;&#x69;&#x66;&#101;&#x6e;&#103;&#x79;&#117;&#x2e;&#x6e;&#101;&#116;</a></li>
 <li>twitter: @fengyucai</li>
 </ul>
 
@@ -74,29 +72,9 @@
 	<footer id="footer" class="inner"><div class="social alignright">
 	<a class="rss" href="/atom.xml" title="RSS">RSS</a>
 </div>
-<p>&copy; 2015 Fengyu</p>
-
 <div class="clearfix"></div>
 </footer>
-	<script src="/javascripts/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-	(function($){
-		$('.entry-content').each(function(i){
-			var _i = i;
-			$(this).find('img').each(function(){
-				var alt = $(this).attr('alt');
-
-				if (alt == '' || typeof alt == 'undefined'){
-					$(this).wrap('<a href="'+$(this).attr('src')+'" class="fancybox" rel="gallery'+_i+'" />');
-				} else {
-					$(this).after('<span class="caption">'+alt+'</span>').wrap('<a href="'+$(this).attr('src')+'" class="fancybox" title="'+alt+'" rel="gallery'+_i+'" />');
-				}
-			});
-		});
-		$('.fancybox').fancybox();
-	})(jQuery);
-</script>
-
+	
 
 </body>
 </html>

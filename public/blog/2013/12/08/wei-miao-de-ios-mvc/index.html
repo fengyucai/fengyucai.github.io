@@ -19,8 +19,6 @@
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<script src="//ajax.useso.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	
-
-	
 </head>
 
 
@@ -97,29 +95,9 @@
 	<footer id="footer" class="inner"><div class="social alignright">
 	<a class="rss" href="/atom.xml" title="RSS">RSS</a>
 </div>
-<p>&copy; 2015 Fengyu</p>
-
 <div class="clearfix"></div>
 </footer>
-	<script src="/javascripts/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-	(function($){
-		$('.entry-content').each(function(i){
-			var _i = i;
-			$(this).find('img').each(function(){
-				var alt = $(this).attr('alt');
-
-				if (alt == '' || typeof alt == 'undefined'){
-					$(this).wrap('<a href="'+$(this).attr('src')+'" class="fancybox" rel="gallery'+_i+'" />');
-				} else {
-					$(this).after('<span class="caption">'+alt+'</span>').wrap('<a href="'+$(this).attr('src')+'" class="fancybox" title="'+alt+'" rel="gallery'+_i+'" />');
-				}
-			});
-		});
-		$('.fancybox').fancybox();
-	})(jQuery);
-</script>
-
+	
 
 </body>
 </html>
