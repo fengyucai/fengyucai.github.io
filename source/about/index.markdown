@@ -7,13 +7,13 @@ sharing: true
 footer: true
 ---
 
-*     <font size="14">I am a 4th year undergraduate student from Guangdong University of Foreign Studies.</font>
-*     I major in English Language and Information Management.
-*     I am a self-taught programmer.　
-*     My favorite programming languages: C, C++, Python, Scheme.
-*     My favorite courses on Computer Science: Compilers, Machine Learning.
-*     I love reading Marvel comics and I am a loyal fan of Marvel Cinematic Universe. 
-*     My first (and only) celebrity crush: Scarlett Johansson.
+###     I am a 4th year undergraduate student from Guangdong University of Foreign Studies.
+###     I major in English Language and Information Management.
+###     I am a self-taught programmer.　
+###     My favorite programming languages: C, C++, Python, Scheme.
+###     My favorite courses on Computer Science: Compilers, Machine Learning.
+###     I love reading Marvel comics and I am a loyal fan of Marvel Cinematic Universe. 
+###     My first (and only) celebrity crush: Scarlett Johansson.
 
 
 ## Contact
