@@ -7,12 +7,13 @@ sharing: true
 footer: true
 ---
 
-###　　广外英语专业大四学生一枚。
-###　　2011年开始接触计算机编程, 从此走上不断挖坑填坑的自学之路。
-###　　喜欢Apple的产品，在校期间学过iOS开发。
-###　　Marvel脑残粉，课余爱好美剧和电影，偶尔看美漫。
-###　　近期的目标是通过练习“造轮子”来学习编译器开发，操作系统原理和数据库实现。
- 
+###　  I am a 4th year undergraduate student from Guangdong University of Foreign Studies.
+###　  I major in English Language and Information Management
+###　  I am a self-taught programmer.　
+###　  My favorite programming languages: C, C++, Python, Scheme　
+###    My favorite courses on Computer Science: Compilers, Machine Learning
+###    I love reading Marvel comics and I am a loyal fan of Marvel Cinematic Universe. 
+###    My first (and only) celebrity crush: Scarlett Johansson.
 
 
 ## Contact
