@@ -7,7 +7,7 @@ sharing: true
 footer: true
 ---
 
-*     <font size="50">I am a 4th year undergraduate student from Guangdong University of Foreign Studies.</font>
+*     <font size="14">I am a 4th year undergraduate student from Guangdong University of Foreign Studies.</font>
 *     I major in English Language and Information Management.
 *     I am a self-taught programmer.　
 *     My favorite programming languages: C, C++, Python, Scheme.
