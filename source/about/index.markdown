@@ -7,6 +7,7 @@ sharing: true
 footer: true
 ---
 
+
 ###     I am a 4th year undergraduate student from Guangdong University of Foreign Studies.
 ###     I major in English Language and Information Management.
 ###     I am a self-taught programmer.　
