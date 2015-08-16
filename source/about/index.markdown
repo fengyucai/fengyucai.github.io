@@ -10,7 +10,7 @@ footer: true
 
 ###     I am a 4th year undergraduate student at Guangdong University of Foreign Studies.
 ###     I major in English Language and Information Management.
-###     I am a self-taught programmer.　
+###     I am a programmer.　
 ###     My favorite programming languages:  C++, Python, Scheme.
 ###     My favorite courses on Computer Science:  Compilers, Machine Learning.
 ###     I love reading Marvel comics and I am a loyal fan of Marvel Cinematic Universe. 
@@ -20,6 +20,3 @@ footer: true
 ## Contact
 * mail: i@caifengyu.net
 * twitter: @fengyucai
-
-
-
