@@ -1,6 +1,6 @@
 --- 
 layout: post
-title: "最简洁的红黑树实现"
+title: "一种简洁的红黑树实现"
 date: 2014-2-16 23:30
 comments: true
 categories: DataStructures
