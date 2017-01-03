@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: architecture | Fengyu Cai]]></title>
-  <link href="http://fengyucai.github.io/blog/categories/architecture/atom.xml" rel="self"/>
-  <link href="http://fengyucai.github.io/"/>
-  <updated>2015-09-17T03:09:15+08:00</updated>
-  <id>http://fengyucai.github.io/</id>
+  <link href="http://www.caifengyu.net/blog/categories/architecture/atom.xml" rel="self"/>
+  <link href="http://www.caifengyu.net/"/>
+  <updated>2017-01-04T07:01:28+08:00</updated>
+  <id>http://www.caifengyu.net/</id>
   <author>
     <name><![CDATA[Fengyu]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[微妙的 iOS MVC]]></title>
-    <link href="http://fengyucai.github.io/blog/2013/12/08/wei-miao-de-ios-mvc/"/>
+    <link href="http://www.caifengyu.net/blog/2013/12/08/wei-miao-de-ios-mvc/"/>
     <updated>2013-12-08T20:23:00+08:00</updated>
-    <id>http://fengyucai.github.io/blog/2013/12/08/wei-miao-de-ios-mvc</id>
+    <id>http://www.caifengyu.net/blog/2013/12/08/wei-miao-de-ios-mvc</id>
     <content type="html"><![CDATA[<p><img src="/images/mvc.png"></p>
 
 <p>Cocoa的设计遵循了MVC的原则，然而相比其他的SDK，models, views和controllers三层之间的界限

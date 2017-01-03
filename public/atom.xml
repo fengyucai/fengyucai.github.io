@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Fengyu Cai]]></title>
-  <link href="http://fengyucai.github.io/atom.xml" rel="self"/>
-  <link href="http://fengyucai.github.io/"/>
-  <updated>2015-09-17T03:09:15+08:00</updated>
-  <id>http://fengyucai.github.io/</id>
+  <link href="http://www.caifengyu.net/atom.xml" rel="self"/>
+  <link href="http://www.caifengyu.net/"/>
+  <updated>2017-01-04T07:01:28+08:00</updated>
+  <id>http://www.caifengyu.net/</id>
   <author>
     <name><![CDATA[Fengyu]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[简单几步生成自己的LaTeX简历]]></title>
-    <link href="http://fengyucai.github.io/blog/2014/10/20/latexresume/"/>
+    <link href="http://www.caifengyu.net/blog/2014/10/20/latexresume/"/>
     <updated>2014-10-20T22:31:00+08:00</updated>
-    <id>http://fengyucai.github.io/blog/2014/10/20/latexresume</id>
+    <id>http://www.caifengyu.net/blog/2014/10/20/latexresume</id>
     <content type="html"><![CDATA[<p>本文仅适用于OS X操作系统下的LaTeX简历生成。</p>
 
 <h2>安装MacTeX</h2>
@@ -355,16 +355,16 @@
 
 <p>不出意外的话名为resume-zn.pdf的简历就成功生成了。Done！
 读者可以重复以上步骤修改到满意为止。我的简历模版效果如图：
-<img src="http://fengyucai.github.io/images/resume.png"></p>
+<img src="http://www.caifengyu.net/images/resume.png"></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[编译原理入门学习小结]]></title>
-    <link href="http://fengyucai.github.io/blog/2014/07/31/compiler/"/>
+    <link href="http://www.caifengyu.net/blog/2014/07/31/compiler/"/>
     <updated>2014-07-31T19:50:00+08:00</updated>
-    <id>http://fengyucai.github.io/blog/2014/07/31/compiler</id>
-    <content type="html"><![CDATA[<p><img src="http://fengyucai.github.io/images/loudenbook.png"></p>
+    <id>http://www.caifengyu.net/blog/2014/07/31/compiler</id>
+    <content type="html"><![CDATA[<p><img src="http://www.caifengyu.net/images/loudenbook.png"></p>
 
 <p>首先，编译原理对程序员而言无疑是非常重要的，有句话说得好：
 If you don&rsquo;t understand how compiler works, you do not
@@ -379,15 +379,15 @@ really know how computer works. 且不说编译技术在各种软件中的
 一本出色的入门书可以节省你许多时间，比起偏理论的Dragon Book，Louden的这本书真正做到了兼顾理论和实践。作者引导你动手实现一个叫做TINY的迷你编译器，感兴趣的读者还可以在此基础上继续开发新的特性。
 最后附上这本书的Amazon评论:</p>
 
-<p><img src="http://fengyucai.github.io/images/AmazonReview.png"></p>
+<p><img src="http://www.caifengyu.net/images/AmazonReview.png"></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[一些值得阅读的开源C代码]]></title>
-    <link href="http://fengyucai.github.io/blog/2014/05/24/sourcecode/"/>
+    <link href="http://www.caifengyu.net/blog/2014/05/24/sourcecode/"/>
     <updated>2014-05-24T00:36:00+08:00</updated>
-    <id>http://fengyucai.github.io/blog/2014/05/24/sourcecode</id>
+    <id>http://www.caifengyu.net/blog/2014/05/24/sourcecode</id>
     <content type="html"><![CDATA[<p>先挖坑，有空再慢慢拜读。</p>
 
 <ol>
@@ -424,9 +424,9 @@ C语言实现的一个JSON编解码器。<a href="http://sourceforge.net/project
   
   <entry>
     <title type="html"><![CDATA[一种简洁的红黑树实现]]></title>
-    <link href="http://fengyucai.github.io/blog/2014/02/16/rbtree/"/>
+    <link href="http://www.caifengyu.net/blog/2014/02/16/rbtree/"/>
     <updated>2014-02-16T23:30:00+08:00</updated>
-    <id>http://fengyucai.github.io/blog/2014/02/16/rbtree</id>
+    <id>http://www.caifengyu.net/blog/2014/02/16/rbtree</id>
     <content type="html"><![CDATA[<p>最近看学习CLRS “红黑树”一章的时候遇到了麻烦：虽然作者给出了详细的介绍
 和严谨的证明，但是看完后仍然是一头雾水，而且400多行伪代码也是不小的记
 忆负担。无意中发现刘未鹏的博客文章<a href="http://mindhacks.cn/2008/07/07/the-importance-of-knowing-why/">知其所以然（以算法学习为例）</a>也提到了这个问题，于是找来红黑树发明者Sedgewick的PPT讲解，终于醍醐
@@ -742,10 +742,10 @@ C语言实现的一个JSON编解码器。<a href="http://sourceforge.net/project
   
   <entry>
     <title type="html"><![CDATA[关于Linked List的奇技淫巧]]></title>
-    <link href="http://fengyucai.github.io/blog/2014/01/05/linkedlist/"/>
+    <link href="http://www.caifengyu.net/blog/2014/01/05/linkedlist/"/>
     <updated>2014-01-05T21:16:00+08:00</updated>
-    <id>http://fengyucai.github.io/blog/2014/01/05/linkedlist</id>
-    <content type="html"><![CDATA[<p><img src="http://fengyucai.github.io/images/linkedlist.png"></p>
+    <id>http://www.caifengyu.net/blog/2014/01/05/linkedlist</id>
+    <content type="html"><![CDATA[<p><img src="http://www.caifengyu.net/images/linkedlist.png"></p>
 
 <p>单链表是一种十分简单的数据结构，然而基本操作的组合可以衍生出不少tricky的问题。
 定义单链表的结构如下(C++11):</p>
@@ -927,10 +927,10 @@ C语言实现的一个JSON编解码器。<a href="http://sourceforge.net/project
   
   <entry>
     <title type="html"><![CDATA[探索UITableViewCell的重用机制]]></title>
-    <link href="http://fengyucai.github.io/blog/2013/12/13/tan-suo-uitableviewcellde-zhong-yong-ji-zhi/"/>
+    <link href="http://www.caifengyu.net/blog/2013/12/13/tan-suo-uitableviewcellde-zhong-yong-ji-zhi/"/>
     <updated>2013-12-13T12:53:00+08:00</updated>
-    <id>http://fengyucai.github.io/blog/2013/12/13/tan-suo-uitableviewcellde-zhong-yong-ji-zhi</id>
-    <content type="html"><![CDATA[<p><img src="http://fengyucai.github.io/images/reuseCell.png"></p>
+    <id>http://www.caifengyu.net/blog/2013/12/13/tan-suo-uitableviewcellde-zhong-yong-ji-zhi</id>
+    <content type="html"><![CDATA[<p><img src="http://www.caifengyu.net/images/reuseCell.png"></p>
 
 <p>为了充分利用iOS设备有限的内存，UITableView这个API的设计巧妙地利用了这样一个事实：
 尽管一个table可能需要显示成千上万个cell的数据, 但在有限的屏幕空间上，用户只能看见当前显示的cell。因此，UITableView采用按需创建cell的策略，随着table的滑动，前面不再可见的cell会被加入一个缓存队列, 当后面新的一行数据需要显示时，可以重用队列中的旧的cell内存来存放数据，如果队列为空，则分配内存新创建一个UITableViewCell对象。</p>
@@ -1082,16 +1082,16 @@ C语言实现的一个JSON编解码器。<a href="http://sourceforge.net/project
 当第1行数据完全不可见时，第1个cell入队列, 接下来需要显示的第12行则重用了队列中第一个cell的空间。
 依此类推，无论table中有多少行数据，无论接下来如何滑动，每一个数据行都可以循环利用这11个cell对象的内存。</p>
 
-<p><img src="http://fengyucai.github.io/images/tableView.png"></p>
+<p><img src="http://www.caifengyu.net/images/tableView.png"></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[微妙的 iOS MVC]]></title>
-    <link href="http://fengyucai.github.io/blog/2013/12/08/wei-miao-de-ios-mvc/"/>
+    <link href="http://www.caifengyu.net/blog/2013/12/08/wei-miao-de-ios-mvc/"/>
     <updated>2013-12-08T20:23:00+08:00</updated>
-    <id>http://fengyucai.github.io/blog/2013/12/08/wei-miao-de-ios-mvc</id>
-    <content type="html"><![CDATA[<p><img src="http://fengyucai.github.io/images/mvc.png"></p>
+    <id>http://www.caifengyu.net/blog/2013/12/08/wei-miao-de-ios-mvc</id>
+    <content type="html"><![CDATA[<p><img src="http://www.caifengyu.net/images/mvc.png"></p>
 
 <p>Cocoa的设计遵循了MVC的原则，然而相比其他的SDK，models, views和controllers三层之间的界限
 并不明显。比如在Rails, Django一类的Web开发框架下，各个模块的代码被清晰地分离至不同的目录中。
@@ -1110,9 +1110,9 @@ C语言实现的一个JSON编解码器。<a href="http://sourceforge.net/project
   
   <entry>
     <title type="html"><![CDATA[iOS 7中的topLayoutGuide与bottomLayoutGuide]]></title>
-    <link href="http://fengyucai.github.io/blog/2013/11/15/ios7layoutguide/"/>
+    <link href="http://www.caifengyu.net/blog/2013/11/15/ios7layoutguide/"/>
     <updated>2013-11-15T18:52:00+08:00</updated>
-    <id>http://fengyucai.github.io/blog/2013/11/15/ios7layoutguide</id>
+    <id>http://www.caifengyu.net/blog/2013/11/15/ios7layoutguide</id>
     <content type="html"><![CDATA[<p>iOS界面顶部和底部的UI的通常由某种UIKit Bars构成, 比如状态栏(status bar),
 导航条(navigation bar), 工具栏(tool bar)和标签栏(tab bar)。开发中常常需要
 在顶部和底部bars之间的区域内布置一些UI元素。在iOS 6以及更早的版本中，一个
@@ -1120,7 +1120,7 @@ UIViewController会自动调整自身view的大小来适配这块中间区域。
 一个UIViewController的view会在竖直方向上扩展至整个屏幕的边界，可能导致原来
 view的子视图被顶部或底部的bars所覆盖(如下图)。</p>
 
-<p><img src="http://fengyucai.github.io/images/beforeguide.png"></p>
+<p><img src="http://www.caifengyu.net/images/beforeguide.png"></p>
 
 <p>为了解决这种新布局带来的问题，iOS 7的UIViewController增加了两个新的属性(property):
 topLayoutGuide和bottomLayoutGuide。topLayoutGuide和bottomLayoutGuide实际上
@@ -1177,7 +1177,7 @@ topLayoutGuide和bottomLayoutGuide。topLayoutGuide和bottomLayoutGuide实际上
 
 <p>在模拟器运行的得到的效果图如下:</p>
 
-<p><img src="http://fengyucai.github.io/images/afterguide.png"></p>
+<p><img src="http://www.caifengyu.net/images/afterguide.png"></p>
 
 <p>当然，您也可以在nib编辑器中通过调整各视图的constraints来达到同样的目的。</p>
 ]]></content>
@@ -1185,9 +1185,9 @@ topLayoutGuide和bottomLayoutGuide。topLayoutGuide和bottomLayoutGuide实际上
   
   <entry>
     <title type="html"><![CDATA[iOS学习总结1: Views]]></title>
-    <link href="http://fengyucai.github.io/blog/2013/11/02/iosxue-xi-zong-jie-1-views/"/>
+    <link href="http://www.caifengyu.net/blog/2013/11/02/iosxue-xi-zong-jie-1-views/"/>
     <updated>2013-11-02T21:32:00+08:00</updated>
-    <id>http://fengyucai.github.io/blog/2013/11/02/iosxue-xi-zong-jie-1-views</id>
+    <id>http://www.caifengyu.net/blog/2013/11/02/iosxue-xi-zong-jie-1-views</id>
     <content type="html"><![CDATA[<p>视图（View) 是UIView类或者UIView子类的实例。一个视图能够将自身绘制到界面的某个矩形区域内。
 我们可以通过在nib编辑器中拖动控件来绘制视图，也可以部分或者全部通过代码来实现。自定义view的
 代码可以控制视图出现(appear)，消失(disappear)，移动(move), 改变大小（resize) 甚至显示
@@ -1218,14 +1218,14 @@ delegate实例也将一直存在于应用的整个生命周期里。在app deleg
 Apple在OS X 10.5后采用更加灵活的规则，在iOS中允许视图之间互相覆盖(overlap), 无论
 是否有父子关系。如图：</p>
 
-<p><img src="http://fengyucai.github.io/images/overlap.png"></p>
+<p><img src="http://www.caifengyu.net/images/overlap.png"></p>
 
 <p>因为overlap有多种可能的情形，我们并无法直接观察出以上三个视图的继承关系。事实上，
 中间的视图和左边的视图是兄弟视图(siblings)，而右边视图是中间视图的子视图。
 如果views是通过nib文件创建的，我们可以通过nib编辑器的outline区域查看它们之间的关系。
 如图:</p>
 
-<p><img src="http://fengyucai.github.io/images/views.png"></p>
+<p><img src="http://www.caifengyu.net/images/views.png"></p>
 
 <p>另外，假设someView是根视图，则可以通过以下代码在控制台输出视图的层次结构：</p>
 
@@ -1292,19 +1292,19 @@ Apple在OS X 10.5后采用更加灵活的规则，在iOS中允许视图之间互
   
   <entry>
     <title type="html"><![CDATA[锐捷校园网Mac客户端登录问题的解决方案]]></title>
-    <link href="http://fengyucai.github.io/blog/2013/11/01/rui-jie-xiao-yuan-wang-macke-hu-duan-deng-lu-wen-ti-de-jie-jue-fang-an/"/>
+    <link href="http://www.caifengyu.net/blog/2013/11/01/rui-jie-xiao-yuan-wang-macke-hu-duan-deng-lu-wen-ti-de-jie-jue-fang-an/"/>
     <updated>2013-11-01T22:15:00+08:00</updated>
-    <id>http://fengyucai.github.io/blog/2013/11/01/rui-jie-xiao-yuan-wang-macke-hu-duan-deng-lu-wen-ti-de-jie-jue-fang-an</id>
+    <id>http://www.caifengyu.net/blog/2013/11/01/rui-jie-xiao-yuan-wang-macke-hu-duan-deng-lu-wen-ti-de-jie-jue-fang-an</id>
     <content type="html"><![CDATA[<p>由于多数同学之前没接触过命令行shell，建议下载完客户端后把文件[Ruijie Suppiant.app]拖曳到
 Finder的应用程序目录下(如图)，接下来只要直接copy我贴出的命令，并粘贴到终端输入就可以了。</p>
 
-<p><img src="http://fengyucai.github.io/images/app.png"></p>
+<p><img src="http://www.caifengyu.net/images/app.png"></p>
 
 <h2>打开终端</h2>
 
 <p>点击右上角的spotlight搜索并打开应用程序［终端］, 如图所示</p>
 
-<p><img src="http://fengyucai.github.io/images/terminal.png"></p>
+<p><img src="http://www.caifengyu.net/images/terminal.png"></p>
 
 <p>在终端输入以下命令, 注意每一行结束都要敲击一下回车[return]</p>
 
@@ -1326,11 +1326,11 @@ Finder的应用程序目录下(如图)，接下来只要直接copy我贴出的�
 <p>这时你应该可以看到如下界面。
 正确选择网卡是关键的一个步骤。如何确认你已经选择了正确的网卡呢？</p>
 
-<p><img src="http://fengyucai.github.io/images/network.png"></p>
+<p><img src="http://www.caifengyu.net/images/network.png"></p>
 
 <p>点击导航条左上角苹果的logo, 点击关于本机-更多信息－系统报告</p>
 
-<p><img src="http://fengyucai.github.io/images/BSD.png"></p>
+<p><img src="http://www.caifengyu.net/images/BSD.png"></p>
 
 <p>如图所示，选中[硬件]下拉列表中的[以太网卡]选项，查看右边的BSD名称，请确认你在客户端下拉菜单
 选择的网卡名称与BSD名称一致。然后就可以点击连接了。如果可以成功连上，那么恭喜你，不用继续
@@ -1340,7 +1340,7 @@ Finder的应用程序目录下(如图)，接下来只要直接copy我贴出的�
 
 <p>部分同学反映点击连接后会出现找不到网卡的提示，终端界面则出现了permission denied的警告，如图。</p>
 
-<p><img src="http://fengyucai.github.io/images/problem.png"></p>
+<p><img src="http://www.caifengyu.net/images/problem.png"></p>
 
 <p>原因是一个ChmodBPF的启动项丢失导致了非root用户对文件/dev/bpf没有read/write权限，
 由于系统每次重启都会重置/dev下文件的权限，每次登录都要在命令行下为bpf文件添加权限无疑是反人类的，ChmodBPF的作用正是在系统启动时帮你自动完成这个任务。解决方法如下：</p>
@@ -1369,14 +1369,14 @@ Finder的应用程序目录下(如图)，接下来只要直接copy我贴出的�
 完成后点击屏幕左上角苹果的logo, 点击 关于本机-更多信息－系统报告
 选中[软件]菜单下的[启动项], 应该可以看到多了一个名称为ChmodBPF的启动项（如图）</p>
 
-<p><img src="http://fengyucai.github.io/images/startup.png"></p>
+<p><img src="http://www.caifengyu.net/images/startup.png"></p>
 
 <h2>为当前用户添加一个群组</h2>
 
 <p>打开系统偏好设置－用户与群组, 点击左下角的＋按钮添加一个名为access_bpf的群组，如图所示，
 创建后记得勾选当前的用户名。</p>
 
-<p><img src="http://fengyucai.github.io/images/group.png"></p>
+<p><img src="http://www.caifengyu.net/images/group.png"></p>
 
 <h2>修改/dev目录下相关文件的群组</h2>
 
@@ -1405,9 +1405,9 @@ Finder的应用程序目录下(如图)，接下来只要直接copy我贴出的�
   
   <entry>
     <title type="html"><![CDATA[OS X 下配置Apache/PHP/MySQL本地测试环境]]></title>
-    <link href="http://fengyucai.github.io/blog/2012/03/05/apache/"/>
+    <link href="http://www.caifengyu.net/blog/2012/03/05/apache/"/>
     <updated>2012-03-05T01:07:00+08:00</updated>
-    <id>http://fengyucai.github.io/blog/2012/03/05/apache</id>
+    <id>http://www.caifengyu.net/blog/2012/03/05/apache</id>
     <content type="html"><![CDATA[<p>Mac OS X 已经自带了Apache和PHP运行环境，因此只需经过一系列简单的配置，就可以在你的本地机器上运行和测试PHP脚本。</p>
 
 <h2>启动Apache服务器</h2>

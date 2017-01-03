@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: ios | Fengyu Cai]]></title>
-  <link href="http://fengyucai.github.io/blog/categories/ios/atom.xml" rel="self"/>
-  <link href="http://fengyucai.github.io/"/>
-  <updated>2015-09-17T03:09:15+08:00</updated>
-  <id>http://fengyucai.github.io/</id>
+  <link href="http://www.caifengyu.net/blog/categories/ios/atom.xml" rel="self"/>
+  <link href="http://www.caifengyu.net/"/>
+  <updated>2017-01-04T07:01:28+08:00</updated>
+  <id>http://www.caifengyu.net/</id>
   <author>
     <name><![CDATA[Fengyu]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[探索UITableViewCell的重用机制]]></title>
-    <link href="http://fengyucai.github.io/blog/2013/12/13/tan-suo-uitableviewcellde-zhong-yong-ji-zhi/"/>
+    <link href="http://www.caifengyu.net/blog/2013/12/13/tan-suo-uitableviewcellde-zhong-yong-ji-zhi/"/>
     <updated>2013-12-13T12:53:00+08:00</updated>
-    <id>http://fengyucai.github.io/blog/2013/12/13/tan-suo-uitableviewcellde-zhong-yong-ji-zhi</id>
+    <id>http://www.caifengyu.net/blog/2013/12/13/tan-suo-uitableviewcellde-zhong-yong-ji-zhi</id>
     <content type="html"><![CDATA[<p><img src="/images/reuseCell.png"></p>
 
 <p>为了充分利用iOS设备有限的内存，UITableView这个API的设计巧妙地利用了这样一个事实：
@@ -188,9 +188,9 @@
   
   <entry>
     <title type="html"><![CDATA[iOS 7中的topLayoutGuide与bottomLayoutGuide]]></title>
-    <link href="http://fengyucai.github.io/blog/2013/11/15/ios7layoutguide/"/>
+    <link href="http://www.caifengyu.net/blog/2013/11/15/ios7layoutguide/"/>
     <updated>2013-11-15T18:52:00+08:00</updated>
-    <id>http://fengyucai.github.io/blog/2013/11/15/ios7layoutguide</id>
+    <id>http://www.caifengyu.net/blog/2013/11/15/ios7layoutguide</id>
     <content type="html"><![CDATA[<p>iOS界面顶部和底部的UI的通常由某种UIKit Bars构成, 比如状态栏(status bar),
 导航条(navigation bar), 工具栏(tool bar)和标签栏(tab bar)。开发中常常需要
 在顶部和底部bars之间的区域内布置一些UI元素。在iOS 6以及更早的版本中，一个
@@ -268,9 +268,9 @@ topLayoutGuide和bottomLayoutGuide。topLayoutGuide和bottomLayoutGuide实际上
   
   <entry>
     <title type="html"><![CDATA[iOS学习总结1: Views]]></title>
-    <link href="http://fengyucai.github.io/blog/2013/11/02/iosxue-xi-zong-jie-1-views/"/>
+    <link href="http://www.caifengyu.net/blog/2013/11/02/iosxue-xi-zong-jie-1-views/"/>
     <updated>2013-11-02T21:32:00+08:00</updated>
-    <id>http://fengyucai.github.io/blog/2013/11/02/iosxue-xi-zong-jie-1-views</id>
+    <id>http://www.caifengyu.net/blog/2013/11/02/iosxue-xi-zong-jie-1-views</id>
     <content type="html"><![CDATA[<p>视图（View) 是UIView类或者UIView子类的实例。一个视图能够将自身绘制到界面的某个矩形区域内。
 我们可以通过在nib编辑器中拖动控件来绘制视图，也可以部分或者全部通过代码来实现。自定义view的
 代码可以控制视图出现(appear)，消失(disappear)，移动(move), 改变大小（resize) 甚至显示

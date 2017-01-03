@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: networking | Fengyu Cai]]></title>
-  <link href="http://fengyucai.github.io/blog/categories/networking/atom.xml" rel="self"/>
-  <link href="http://fengyucai.github.io/"/>
-  <updated>2015-09-17T03:09:15+08:00</updated>
-  <id>http://fengyucai.github.io/</id>
+  <link href="http://www.caifengyu.net/blog/categories/networking/atom.xml" rel="self"/>
+  <link href="http://www.caifengyu.net/"/>
+  <updated>2017-01-04T07:01:28+08:00</updated>
+  <id>http://www.caifengyu.net/</id>
   <author>
     <name><![CDATA[Fengyu]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[锐捷校园网Mac客户端登录问题的解决方案]]></title>
-    <link href="http://fengyucai.github.io/blog/2013/11/01/rui-jie-xiao-yuan-wang-macke-hu-duan-deng-lu-wen-ti-de-jie-jue-fang-an/"/>
+    <link href="http://www.caifengyu.net/blog/2013/11/01/rui-jie-xiao-yuan-wang-macke-hu-duan-deng-lu-wen-ti-de-jie-jue-fang-an/"/>
     <updated>2013-11-01T22:15:00+08:00</updated>
-    <id>http://fengyucai.github.io/blog/2013/11/01/rui-jie-xiao-yuan-wang-macke-hu-duan-deng-lu-wen-ti-de-jie-jue-fang-an</id>
+    <id>http://www.caifengyu.net/blog/2013/11/01/rui-jie-xiao-yuan-wang-macke-hu-duan-deng-lu-wen-ti-de-jie-jue-fang-an</id>
     <content type="html"><![CDATA[<p>由于多数同学之前没接触过命令行shell，建议下载完客户端后把文件[Ruijie Suppiant.app]拖曳到
 Finder的应用程序目录下(如图)，接下来只要直接copy我贴出的命令，并粘贴到终端输入就可以了。</p>
 

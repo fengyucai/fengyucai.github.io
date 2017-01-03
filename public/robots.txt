@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://fengyucai.github.io/sitemap.xml 
+Sitemap: http://www.caifengyu.net/sitemap.xml 
