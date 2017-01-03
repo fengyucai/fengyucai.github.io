@@ -15,4 +15,3 @@ footer: true
 
 ## Contact
 * mail: i@caifengyu.net
-* twitter: @fengyucai
