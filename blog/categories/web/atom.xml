@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: web | Fengyu Cai]]></title>
+  <link href="http://www.caifengyu.net/blog/categories/web/atom.xml" rel="self"/>
+  <link href="http://www.caifengyu.net/"/>
+  <updated>2017-01-04T07:01:28+08:00</updated>
+  <id>http://www.caifengyu.net/</id>
+  <author>
+    <name><![CDATA[Fengyu]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[OS X 下配置Apache/PHP/MySQL本地测试环境]]></title>
+    <link href="http://www.caifengyu.net/blog/2012/03/05/apache/"/>
+    <updated>2012-03-05T01:07:00+08:00</updated>
+    <id>http://www.caifengyu.net/blog/2012/03/05/apache</id>
+    <content type="html"><![CDATA[<p>Mac OS X 已经自带了Apache和PHP运行环境，因此只需经过一系列简单的配置，就可以在你的本地机器上运行和测试PHP脚本。</p>
+
+<h2>启动Apache服务器</h2>
+
+<p>打开终端(terminal), 输入 sudo apachectl start ，再输入你的密码Apache就开始运行了。
+Apache的默认根目录位于 /Library/WebServer/Documents/ 下。打开浏览器并输入<a href="http://localhost">http://localhost</a> 可以看到一个显示文本为
+&ldquo;It works&#8221;的HTML页面。在终端中输入sudo apachectl -v 可查看Apache的版本信息，比如我的系统OS X 10.8.4中：
+sudo apachectl -v
+Server version: Apache/2.2.22 (Unix)
+Server built:   Dec  9 2012 18:57:18
+此外，为了安全起见，可以设置只允许localhost和127.0.0.1访问根目录/Library/WebServer/Documents
+在终端中输入 sudo vi /etc/apache2/httpd.conf , 注释掉 &#8220;Allow for all&rdquo; 并新增加两行如下：
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;Directory "/Library/WebServer/Documents">
+</span><span class='line'>&hellip;
+</span><span class='line'> #
+</span><span class='line'> # Controls who can get stuff from this server.
+</span><span class='line'> #
+</span><span class='line'>     Order allow,deny
+</span><span class='line'>    #Allow from all
+</span><span class='line'>     Allow from 127.0.0.1
+</span><span class='line'>     Allow from localhost
+</span><span class='line'> &lt;/Directory></span></code></pre></td></tr></table></div></figure></p>
+
+<h2>配置PHP</h2>
+
+<ol>
+<li>继续在httpconf文本中搜索字符串 #LoadModule php5_module libexec/apache2/libphp5.so
+ 并去掉前面的井号 保存后退出。</li>
+<li>在终端中输入:</li>
+</ol>
+
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo cp  /etc/php.ini.default  /etc/php.ini
+</span><span class='line'> sudo vi  /etc/php.ini</span></code></pre></td></tr></table></div></figure></p>
+
+<ol>
+<li><p>输入sudo apachectl restart 来重启Apache, PHP就可以使用了。</p></li>
+<li><p>现在把你的PHP脚本放在/Library/WebServer/Documents目录下即可进行测试。
+比如该目录下有一个名为info.php的文件，就可以通过在浏览器中输入<a href="http://localhost/info.php">http://localhost/info.php</a>来访问。</p></li>
+</ol>
+
+
+<h2>安装MySQL</h2>
+
+<p>Mac OS X没有内置MySQL，所以需要自己手动安装。</p>
+
+<p>1.访问<a href="http://dev.mysql.com/downloads/mysql/">dev.mysql.com</a>下载MySQL。</p>
+
+<p>2.点击打开dmg，会发现里面有4个文件。首先点击并安装MySQL主安装包mysql-5.5.27-osx10.6-x86_64.pkg。</p>
+
+<p>3.安装第2个文件MySQLStartupItem.pkg，MySQL就会自动在开机时启动。</p>
+
+<p>4.安装第3个文件MySQL.prefPane，就会在“系统设置偏好”中新建一个MySQL的图标，可以通过它来控制MySQL的开启和关闭。
+5.在终端中输入“sudo vi /etc/bashrc”，在bash配置文件中添加以下3个别名（注：修改完毕需要重启终端命令才会生效）：
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;h1>mysql&lt;/h1>
+</span><span class='line'>
+</span><span class='line'>&lt;p>alias mysqlstart=&lsquo;sudo /Library/StartupItems/MySQLCOM/MySQLCOM restart&rsquo;
+</span><span class='line'>alias mysql=&lsquo;/usr/local/mysql/bin/mysql&rsquo;
+</span><span class='line'>alias mysqladmin=&lsquo;/usr/local/mysql/bin/mysqladmin&rsquo;</span></code></pre></td></tr></table></div></figure>
+这样就可以在终端中通过简单的命令进行相应的操作。
+最后, 修改php.ini：
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mysql.default_socket = /tmp/mysql.sock</span></code></pre></td></tr></table></div></figure></p>
+]]></content>
+  </entry>
+  
+</feed>

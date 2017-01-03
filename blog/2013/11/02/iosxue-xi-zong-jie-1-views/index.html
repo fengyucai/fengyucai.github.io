@@ -1,0 +1,188 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>iOS学习总结1: Views | Fengyu Cai</title>
+	<meta name="author" content="Fengyu">
+
+	
+	<meta name="description" content="视图（View) 是UIView类或者UIView子类的实例。一个视图能够将自身绘制到界面的某个矩形区域内。
+我们可以通过在nib编辑器中拖动控件来绘制视图，也可以部分或者全部通过代码来实现。自定义view的
+代码可以控制视图出现(appear)，消失(disappear)，移动(move), &hellip;">
+	
+
+	<link href="/atom.xml" rel="alternate" title="Fengyu Cai" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.useso.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><nav><ul>
+  <li><a href="/">Home</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+</nav>
+</header>
+	<div id="content" class="inner"><article class="post"><header>
+  
+  <h1 class="title">iOS学习总结1: Views</h1>
+  
+  
+
+
+
+
+
+
+
+
+	
+		<time datetime="2013-11-02T21:32:00+08:00">
+			<span class="day"> 2</span><span class="month">Nov</span>
+		</time>
+	
+
+</header>
+<div class="entry-content">
+  
+    <p>视图（View) 是UIView类或者UIView子类的实例。一个视图能够将自身绘制到界面的某个矩形区域内。
+我们可以通过在nib编辑器中拖动控件来绘制视图，也可以部分或者全部通过代码来实现。自定义view的
+代码可以控制视图出现(appear)，消失(disappear)，移动(move), 改变大小（resize) 甚至显示
+一些动画效果(animation)。同时UIView也是UIResponder的子类，这意味着Views可以响应来自用户
+的触摸事件，比如轻敲(tap) , 滑动(swipe), 长按(long press)等等。</p>
+
+<p>应用中的Views是通过视图层次结构(view hierarchy)组织起来的。一个视图可以有多个子视图(subviews)，
+但只能有一个直接父视图(superview)。当一个视图从界面中移除时，其子视图也会随着移除。一个视图移动,
+其子视图也会跟着移动。视图层次结构是响应对象链(responder chain)的基础。</p>
+
+<h2>UIWindow</h2>
+
+<p>UIWindow实例位于视图层次结构的最顶部，UIWindow也是UIView的子类。UIWindow实例的
+主要功能是为Views提供显示空间以及向其他Views分发事件。一般情况下应用只有唯一一个UIWindow实例，
+它在app启动时创建并占据整个屏幕, 然后在程序的整个生命周期(lifetime)都一直存在。
+App Delegate 类拥有一个window属性(property)，指向这个UIWindow实例。当应用启动时，
+main.m文件中的UIApplicationMain被main函数调用，创建并初始化App Delegate实例。app
+delegate实例也将一直存在于应用的整个生命周期里。在app delegate中创建UIWindow的代码示例如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="bp">UIWindow</span><span class="o">*</span> <span class="n">w</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIWindow</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:[[</span><span class="bp">UIScreen</span> <span class="n">mainScreen</span><span class="p">]</span> <span class="n">bounds</span><span class="p">]];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>子视图与父视图</h2>
+
+<p>OS X 10.5之前，如果A视图不是B视图的子视图，则A视图的任何部分都不能出现在B视图的区域内。
+Apple在OS X 10.5后采用更加灵活的规则，在iOS中允许视图之间互相覆盖(overlap), 无论
+是否有父子关系。如图：</p>
+
+<p><img src="/images/overlap.png"></p>
+
+<p>因为overlap有多种可能的情形，我们并无法直接观察出以上三个视图的继承关系。事实上，
+中间的视图和左边的视图是兄弟视图(siblings)，而右边视图是中间视图的子视图。
+如果views是通过nib文件创建的，我们可以通过nib编辑器的outline区域查看它们之间的关系。
+如图:</p>
+
+<p><img src="/images/views.png"></p>
+
+<p>另外，假设someView是根视图，则可以通过以下代码在控制台输出视图的层次结构：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSLog</span><span class="p">(@</span><span class="err">“</span><span class="o">%</span><span class="p">@</span><span class="err">“</span><span class="p">,</span> <span class="p">[</span><span class="n">someView</span> <span class="nl">performSelector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">recursiveDescription</span><span class="p">)]);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>addSubview:方法使得一个视图成为另一视图的子视图，当addSubview:被调用时，传入参数的
+视图对象会成为父视图subviews数组的最后一个元素，也就是最后一个绘制在屏幕上的子视图，
+覆盖在所有子视图的最顶层。 为了更好地理解overlap的规则和视图之间的关系，我们可以新建
+一个iOS Empty Application 项目, 通过以下代码实现上面三个视图的效果。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="bp">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didFinishLaunchingWithOptions:</span><span class="p">(</span><span class="bp">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">launchOptions</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">window</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIWindow</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:[[</span><span class="bp">UIScreen</span> <span class="n">mainScreen</span><span class="p">]</span> <span class="n">bounds</span><span class="p">]];</span>
+</span><span class='line'>    <span class="c1">// Override point for customization after application launch.</span>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="p">.</span><span class="n">rootViewController</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIViewController</span> <span class="n">new</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="bp">UIView</span> <span class="o">*</span><span class="n">mainView</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="p">.</span><span class="n">rootViewController</span><span class="p">.</span><span class="n">view</span><span class="p">;</span>
+</span><span class='line'>    <span class="bp">UIView</span> <span class="o">*</span><span class="n">v1</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">113</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">132</span><span class="p">,</span> <span class="mi">194</span><span class="p">)];</span>
+</span><span class='line'>    <span class="n">v1</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="nl">colorWithRed</span><span class="p">:</span><span class="mi">1</span> <span class="nl">green</span><span class="p">:</span><span class="mf">0.4</span> <span class="nl">blue</span><span class="p">:</span><span class="mi">1</span> <span class="nl">alpha</span><span class="p">:</span><span class="mi">1</span><span class="p">];</span>
+</span><span class='line'>    <span class="bp">UIView</span> <span class="o">*</span><span class="n">v2</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">41</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">132</span><span class="p">,</span> <span class="mi">194</span><span class="p">)];</span>
+</span><span class='line'>    <span class="n">v2</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="nl">colorWithRed</span><span class="p">:</span><span class="mf">0.5</span> <span class="nl">green</span><span class="p">:</span><span class="mi">1</span> <span class="nl">blue</span><span class="p">:</span><span class="mi">0</span> <span class="nl">alpha</span><span class="p">:</span><span class="mi">1</span><span class="p">];</span>
+</span><span class='line'>    <span class="bp">UIView</span> <span class="o">*</span><span class="n">v3</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">43</span><span class="p">,</span> <span class="mi">197</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">230</span><span class="p">)];</span>
+</span><span class='line'>    <span class="n">v3</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="nl">colorWithRed</span><span class="p">:</span><span class="mi">1</span> <span class="nl">green</span><span class="p">:</span><span class="mi">0</span> <span class="nl">blue</span><span class="p">:</span><span class="mi">0</span> <span class="nl">alpha</span><span class="p">:</span><span class="mi">1</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">[</span><span class="n">mainView</span> <span class="nl">addSubview</span><span class="p">:</span><span class="n">v1</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">v1</span> <span class="nl">addSubview</span><span class="p">:</span><span class="n">v2</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">mainView</span> <span class="nl">addSubview</span><span class="p">:</span><span class="n">v3</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="n">whiteColor</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">window</span> <span class="n">makeKeyAndVisible</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>未完待续</h2>
+
+    
+      <div class="sharing">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4daee9911f9dfcb4"></script>
+</div>
+    
+  
+  
+  <footer class="meta">
+    
+
+
+
+	<div class="tags"><a class='category' href='/blog/categories/ios/'>ios</a></div>
+
+    
+  </footer>
+  
+</div>
+</article></div>
+	<footer id="footer" class="inner"><div class="social alignright">
+	<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+</div>
+<div class="clearfix"></div>
+</footer>
+	
+
+</body>
+</html>

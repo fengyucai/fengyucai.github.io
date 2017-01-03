@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: compiler | Fengyu Cai]]></title>
+  <link href="http://www.caifengyu.net/blog/categories/compiler/atom.xml" rel="self"/>
+  <link href="http://www.caifengyu.net/"/>
+  <updated>2017-01-04T07:01:28+08:00</updated>
+  <id>http://www.caifengyu.net/</id>
+  <author>
+    <name><![CDATA[Fengyu]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[编译原理入门学习小结]]></title>
+    <link href="http://www.caifengyu.net/blog/2014/07/31/compiler/"/>
+    <updated>2014-07-31T19:50:00+08:00</updated>
+    <id>http://www.caifengyu.net/blog/2014/07/31/compiler</id>
+    <content type="html"><![CDATA[<p><img src="/images/loudenbook.png"></p>
+
+<p>首先，编译原理对程序员而言无疑是非常重要的，有句话说得好：
+If you don&rsquo;t understand how compiler works, you do not
+really know how computer works. 且不说编译技术在各种软件中的
+广泛应用，入门的学习经历中已经让我获益匪浅。在尝试手写scanner和parser
+过程中回顾了trees，hashtable等重要的数据结构, 又掌握了更多编程语言的细节，
+学习code generation的过程可以把以前学过的计算机体系结构，操作系统等知识
+联系起来，设计grammer和自动机的时候又遇到了语言学课程上熟悉的Noam Chomsky。
+此外，编译器构建本身是一项较大的工程，会引导你去思考如何编写可维护的代码。</p>
+
+<p>然后，请允许我来安利一下<a href="http://www.amazon.com/Compiler-Construction-Principles-Kenneth-Louden/dp/0534939724">Compiler Construction: Principles and Practice</a>这本书。
+一本出色的入门书可以节省你许多时间，比起偏理论的Dragon Book，Louden的这本书真正做到了兼顾理论和实践。作者引导你动手实现一个叫做TINY的迷你编译器，感兴趣的读者还可以在此基础上继续开发新的特性。
+最后附上这本书的Amazon评论:</p>
+
+<p><img src="/images/AmazonReview.png"></p>
+]]></content>
+  </entry>
+  
+</feed>

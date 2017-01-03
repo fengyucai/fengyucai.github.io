@@ -1,0 +1,173 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Fengyu Cai</title>
+	<meta name="author" content="Fengyu">
+
+	
+	<meta name="description" content="Mac OS X 已经自带了Apache和PHP运行环境，因此只需经过一系列简单的配置，就可以在你的本地机器上运行和测试PHP脚本。 启动Apache服务器 打开终端(terminal), 输入 sudo apachectl start ，再输入你的密码Apache就开始运行了。 &hellip;">
+	
+
+	<link href="/atom.xml" rel="alternate" title="Fengyu Cai" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.useso.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><nav><ul>
+  <li><a href="/">Home</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+</nav>
+</header>
+	<div id="content" class="inner">
+
+
+	<article class="post"><header>
+  
+  <h1 class="title"><a href="/blog/2012/03/05/apache/">OS X 下配置Apache/PHP/MySQL本地测试环境</a></h1>
+  
+  
+
+
+
+
+
+
+
+
+	
+		<time datetime="2012-03-05T01:07:00+08:00">
+			<span class="day"> 5</span><span class="month">Mar</span>
+		</time>
+	
+
+</header>
+<div class="entry-content">
+  
+    <p>Mac OS X 已经自带了Apache和PHP运行环境，因此只需经过一系列简单的配置，就可以在你的本地机器上运行和测试PHP脚本。</p>
+
+<h2>启动Apache服务器</h2>
+
+<p>打开终端(terminal), 输入 sudo apachectl start ，再输入你的密码Apache就开始运行了。
+Apache的默认根目录位于 /Library/WebServer/Documents/ 下。打开浏览器并输入<a href="http://localhost">http://localhost</a> 可以看到一个显示文本为
+&ldquo;It works&#8221;的HTML页面。在终端中输入sudo apachectl -v 可查看Apache的版本信息，比如我的系统OS X 10.8.4中：
+sudo apachectl -v
+Server version: Apache/2.2.22 (Unix)
+Server built:   Dec  9 2012 18:57:18
+此外，为了安全起见，可以设置只允许localhost和127.0.0.1访问根目录/Library/WebServer/Documents
+在终端中输入 sudo vi /etc/apache2/httpd.conf , 注释掉 &#8220;Allow for all&rdquo; 并新增加两行如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;Directory "/Library/WebServer/Documents"> 
+</span><span class='line'>...
+</span><span class='line'> #
+</span><span class='line'> # Controls who can get stuff from this server. 
+</span><span class='line'> # 
+</span><span class='line'>       Order allow,deny
+</span><span class='line'>  #Allow from all 
+</span><span class='line'>   Allow from 127.0.0.1
+</span><span class='line'>   Allow from localhost 
+</span><span class='line'> &lt;/Directory></span></code></pre></td></tr></table></div></figure>
+
+
+<h2>配置PHP</h2>
+
+<ol>
+<li>继续在httpconf文本中搜索字符串 #LoadModule php5_module libexec/apache2/libphp5.so
+ 并去掉前面的井号 保存后退出。</li>
+<li>在终端中输入:</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo cp  /etc/php.ini.default  /etc/php.ini
+</span><span class='line'> sudo vi  /etc/php.ini</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li><p>输入sudo apachectl restart 来重启Apache, PHP就可以使用了。</p></li>
+<li><p>现在把你的PHP脚本放在/Library/WebServer/Documents目录下即可进行测试。
+比如该目录下有一个名为info.php的文件，就可以通过在浏览器中输入<a href="http://localhost/info.php">http://localhost/info.php</a>来访问。</p></li>
+</ol>
+
+
+<h2>安装MySQL</h2>
+
+<p>Mac OS X没有内置MySQL，所以需要自己手动安装。</p>
+
+<p>1.访问<a href="http://dev.mysql.com/downloads/mysql/">dev.mysql.com</a>下载MySQL。</p>
+
+<p>2.点击打开dmg，会发现里面有4个文件。首先点击并安装MySQL主安装包mysql-5.5.27-osx10.6-x86_64.pkg。</p>
+
+<p>3.安装第2个文件MySQLStartupItem.pkg，MySQL就会自动在开机时启动。</p>
+
+<p>4.安装第3个文件MySQL.prefPane，就会在“系统设置偏好”中新建一个MySQL的图标，可以通过它来控制MySQL的开启和关闭。
+5.在终端中输入“sudo vi /etc/bashrc”，在bash配置文件中添加以下3个别名（注：修改完毕需要重启终端命令才会生效）：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#mysql
+</span><span class='line'>alias mysqlstart='sudo /Library/StartupItems/MySQLCOM/MySQLCOM restart'
+</span><span class='line'>alias mysql='/usr/local/mysql/bin/mysql'
+</span><span class='line'>alias mysqladmin='/usr/local/mysql/bin/mysqladmin'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样就可以在终端中通过简单的命令进行相应的操作。
+最后, 修改php.ini：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mysql.default_socket = /tmp/mysql.sock</span></code></pre></td></tr></table></div></figure>
+
+
+  
+  
+  <footer class="meta">
+    
+
+
+
+	<div class="tags"><a class='category' href='/blog/categories/web/'>web</a></div>
+
+    
+  </footer>
+  
+</div>
+</article>
+
+
+<nav id="pagenavi">
+	<a href="1" class="prev alignleft">Prev</a>
+	
+ <div class="clearfix"></div>
+</nav>
+</div>
+	<footer id="footer" class="inner"><div class="social alignright">
+	<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+</div>
+<div class="clearfix"></div>
+</footer>
+	
+
+</body>
+</html>

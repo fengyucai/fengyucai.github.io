@@ -1,0 +1,426 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>简单几步生成自己的LaTeX简历 | Fengyu Cai</title>
+	<meta name="author" content="Fengyu">
+
+	
+	<meta name="description" content="本文仅适用于OS X操作系统下的LaTeX简历生成。 安装MacTeX 首先戳MacTex.pkg 下载地址下载并安装LaTeX。
+没有安装Xcode的同学还要下载Xcode并安装Command Line Tools。 修改LaTeX简历模版 首先在桌面新建一个后缀名为tex的文本文件， &hellip;">
+	
+
+	<link href="/atom.xml" rel="alternate" title="Fengyu Cai" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.useso.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><nav><ul>
+  <li><a href="/">Home</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+</nav>
+</header>
+	<div id="content" class="inner"><article class="post"><header>
+  
+  <h1 class="title">简单几步生成自己的LaTeX简历</h1>
+  
+  
+
+
+
+
+
+
+
+
+	
+		<time datetime="2014-10-20T22:31:00+08:00">
+			<span class="day">20</span><span class="month">Oct</span>
+		</time>
+	
+
+</header>
+<div class="entry-content">
+  
+    <p>本文仅适用于OS X操作系统下的LaTeX简历生成。</p>
+
+<h2>安装MacTeX</h2>
+
+<p>首先戳<a href="http://mirror.ctan.org/systems/mac/mactex/MacTeX.pkg">MacTex.pkg 下载地址</a>下载并安装LaTeX。
+没有安装Xcode的同学还要下载Xcode并安装Command Line Tools。</p>
+
+<h2>修改LaTeX简历模版</h2>
+
+<p>首先在桌面新建一个后缀名为tex的文本文件，输入简历模版的内容，并替换修改成自己需要的信息。
+这里以我的简历模版(resume-zn.tex)为例，读者可以自己在网上搜索更多的模版。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+</pre></td><td class='code'><pre><code class='latex'><span class='line'><span class="k">\documentclass</span><span class="na">[11pt,a4paper]</span><span class="nb">{</span>moderncv<span class="nb">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">% moderncv themes</span>
+</span><span class='line'><span class="c">%\moderncvtheme[blue]{casual}                 % optional argument are &#39;blue&#39; (default), &#39;orange&#39;, &#39;red&#39;, &#39;green&#39;, &#39;grey&#39; and &#39;roman&#39; (for roman fonts, instead of sans serif fonts)</span>
+</span><span class='line'><span class="k">\moderncvtheme</span><span class="na">[blue]</span><span class="nb">{</span>classic<span class="nb">}</span>                <span class="c">% idem</span>
+</span><span class='line'><span class="k">\usepackage</span><span class="nb">{</span>xunicode, xltxtra<span class="nb">}</span>
+</span><span class='line'><span class="k">\XeTeXlinebreaklocale</span> &quot;zh&quot;
+</span><span class='line'><span class="k">\widowpenalty</span>=10000
+</span><span class='line'>
+</span><span class='line'><span class="c">%\setmainfont[Mapping=tex-text]{文泉驿正黑}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">% character encoding</span>
+</span><span class='line'><span class="k">\usepackage</span><span class="na">[utf8]</span><span class="nb">{</span>inputenc<span class="nb">}</span>                   <span class="c">% replace by the encoding you are using</span>
+</span><span class='line'><span class="k">\usepackage</span><span class="nb">{</span>CJKutf8<span class="nb">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">% adjust the page margins</span>
+</span><span class='line'><span class="k">\usepackage</span><span class="na">[scale=0.8]</span><span class="nb">{</span>geometry<span class="nb">}</span>
+</span><span class='line'><span class="k">\recomputelengths</span>                             <span class="c">% required when changes are made to page layout lengths</span>
+</span><span class='line'><span class="k">\setmainfont</span><span class="na">[Mapping=tex-text]</span><span class="nb">{</span>Hiragino Sans GB<span class="nb">}</span>
+</span><span class='line'><span class="k">\setsansfont</span><span class="na">[Mapping=tex-text]</span><span class="nb">{</span>Hiragino Sans GB<span class="nb">}</span>
+</span><span class='line'><span class="c">%\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Gill Sans} % Font for your name at the top</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">\CJKtilde</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">% personal data</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">%% start of file `template-zh.tex&#39;.</span>
+</span><span class='line'><span class="c">%% Copyright 2006-2012 Xavier Danaux (xdanaux@gmail.com).</span>
+</span><span class='line'><span class="c">%</span>
+</span><span class='line'><span class="c">% This work may be distributed and/or modified under the</span>
+</span><span class='line'><span class="c">% conditions of the LaTeX Project Public License version 1.3c,</span>
+</span><span class='line'><span class="c">% available at http://www.latex-project.org/lppl/.</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">% 个人信息</span>
+</span><span class='line'><span class="k">\firstname</span><span class="nb">{</span>XXX<span class="nb">}</span>
+</span><span class='line'><span class="k">\familyname</span><span class="nb">{}</span>
+</span><span class='line'><span class="k">\title</span><span class="nb">{</span>个人简历<span class="nb">}</span>                      <span class="c">% 可选项、如不需要可删除本行</span>
+</span><span class='line'><span class="k">\mobile</span><span class="nb">{</span>+86~0123456789<span class="nb">}</span>                         <span class="c">% 可选项、如不需要可删除本行</span>
+</span><span class='line'><span class="c">%\phone{+2~(345)~678~901}                          % 可选项、如不需要可删除本行</span>
+</span><span class='line'><span class="c">%\fax{+3~(456)~789~012}                            % 可选项、如不需要可删除本行</span>
+</span><span class='line'><span class="k">\email</span><span class="nb">{</span>i@caifengyu.net<span class="nb">}</span>                    <span class="c">% 可选项、如不需要可删除本行</span>
+</span><span class='line'><span class="k">\homepage</span><span class="nb">{</span>fengyucai.github.io<span class="nb">}</span>                  <span class="c">% 可选项、如不需要可删除本行</span>
+</span><span class='line'><span class="c">%\extrainfo{附加信息 (可选项)}                  % 可选项、如不需要可删除本行</span>
+</span><span class='line'><span class="c">%\quote{引言(可选项)}                           % 可选项、如不需要可删除本行</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">% 显示索引号;仅用于在简历中使用了引言</span>
+</span><span class='line'><span class="c">%\makeatletter</span>
+</span><span class='line'><span class="c">%\renewcommand*{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}</span>
+</span><span class='line'><span class="c">%\makeatother</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">% 分类索引</span>
+</span><span class='line'><span class="c">%----------------------------------------------------------------------------------</span>
+</span><span class='line'><span class="c">%            内容</span>
+</span><span class='line'><span class="c">%----------------------------------------------------------------------------------</span>
+</span><span class='line'><span class="k">\begin</span><span class="nb">{</span>document<span class="nb">}</span>
+</span><span class='line'><span class="k">\maketitle</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">\section</span><span class="nb">{</span>教育经历<span class="nb">}</span>
+</span><span class='line'><span class="k">\cventry</span><span class="nb">{</span>2011 -- 2015<span class="nb">}{</span>本科<span class="nb">}</span> <span class="nb">{</span>广东外语外贸大学 英语语言文化学院 语言信息管理专业<span class="nb">}{}{}{}</span>  <span class="c">% 第3到第6编码可留白</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">%\section{毕业论文}</span>
+</span><span class='line'><span class="c">%\cvitem{题目}{\emph{题目}}</span>
+</span><span class='line'><span class="c">%\cvitem{导师}{导师}</span>
+</span><span class='line'><span class="c">%\cvitem{说明}{\small 论文简介}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">\section</span><span class="nb">{</span>社区<span class="nb">}</span>
+</span><span class='line'><span class="k">\cvline</span><span class="nb">{</span>Blog<span class="nb">}{</span><span class="k">\url</span><span class="nb">{</span>http://fengyucai.github.io<span class="nb">}}</span>
+</span><span class='line'><span class="k">\cvline</span><span class="nb">{</span>GitHub<span class="nb">}{</span><span class="k">\url</span><span class="nb">{</span>http://github.com/fengyucai<span class="nb">}}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">\section</span><span class="nb">{</span>技术相关<span class="nb">}</span>
+</span><span class='line'><span class="k">\cvline</span><span class="nb">{</span>算法与数据结构<span class="nb">}{</span>熟悉常用的数据结构，具备基本的算法分析和设计能力。<span class="nb">}</span>
+</span><span class='line'><span class="k">\cvline</span><span class="nb">{</span>编程语言<span class="nb">}{</span>C/C++ &gt; Objective-C &gt; Python &gt; Scheme &gt; Perl<span class="nb">}</span>
+</span><span class='line'><span class="k">\cvline</span><span class="nb">{</span>编译原理<span class="nb">}{</span>理解现代编译器的设计和构建，能够手写常见程序语言的tokenizer和parser。<span class="nb">}</span>
+</span><span class='line'><span class="k">\cvline</span><span class="nb">{</span>操作系统<span class="nb">}{</span>了解OS的基本理论，熟悉Unix命令行操作及相关开发工具, Mac OS X长期用户。<span class="nb">}</span>
+</span><span class='line'><span class="k">\cvline</span><span class="nb">{</span>数据库<span class="nb">}{</span>MySQL, SQL Server<span class="nb">}</span>
+</span><span class='line'><span class="k">\cvline</span><span class="nb">{</span>开发框架<span class="nb">}{</span>Django, Cocoa/Cocoa Touch<span class="nb">}</span>
+</span><span class='line'><span class="k">\cvline</span><span class="nb">{</span>版本控制<span class="nb">}{</span>Git<span class="nb">}</span>
+</span><span class='line'><span class="k">\cvline</span><span class="nb">{</span>编辑器/IDE<span class="nb">}{</span>Vim, TextMate, Xcode, Visual Studio<span class="nb">}</span>
+</span><span class='line'><span class="k">\cvline</span><span class="nb">{</span>文档排版<span class="nb">}{</span><span class="k">\LaTeX</span><span class="nb">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">\section</span><span class="nb">{</span>语言技能<span class="nb">}</span>
+</span><span class='line'><span class="k">\cvline</span><span class="nb">{</span>英语<span class="nb">}{</span><span class="k">\textbf</span><span class="nb">{</span>TEM-4<span class="nb">}</span>，长期阅读英文技术类书籍和文档，能够与外国开发者无障碍地交流。<span class="nb">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">\section</span><span class="nb">{</span>项目经历<span class="nb">}</span>
+</span><span class='line'><span class="k">\renewcommand</span><span class="nb">{</span><span class="k">\baselinestretch</span><span class="nb">}{</span>1.2<span class="nb">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">\cventry</span><span class="nb">{</span>2014至今<span class="nb">}</span>
+</span><span class='line'><span class="nb">{</span>C-minus Compiler<span class="nb">}</span>
+</span><span class='line'><span class="nb">{</span>Compiler<span class="nb">}</span>
+</span><span class='line'><span class="nb">{</span>个人项目<span class="nb">}{}</span>
+</span><span class='line'><span class="nb">{</span>一个简化版的Ｃ编译器，作为学习编译原理之后的实践项目。独立实现了编译器前端部分的scanner, parser和semantic analyzer, 然后利用LLVM完成了后端的代码生成和优化等阶段。<span class="nb">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">\cventry</span><span class="nb">{</span>2014<span class="nb">}</span>
+</span><span class='line'><span class="nb">{</span>Zion: 基于互联网的英语创意写作平台<span class="nb">}</span>
+</span><span class='line'><span class="nb">{</span>Python Django MySQL<span class="nb">}</span>
+</span><span class='line'><span class="nb">{</span>团队项目<span class="nb">}{}</span>
+</span><span class='line'><span class="nb">{</span>Zion是一个在线英语写作网站，旨在通过增加学生之间的互动来提高英语写作水平。我作为主程制定了各项开发细节(包括编码规范，测试框架等)，并实现了文章发布，用户评论，互相关注，文本的语法分析等主要功能。<span class="nb">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">\cventry</span><span class="nb">{</span>2013<span class="nb">}</span>
+</span><span class='line'><span class="nb">{</span>LittleLisper<span class="nb">}</span>
+</span><span class='line'><span class="nb">{</span>Interpreter<span class="nb">}</span>
+</span><span class='line'><span class="nb">{</span>个人项目<span class="nb">}{}</span>
+</span><span class='line'><span class="nb">{</span>一个用Scheme编写的Scheme解释器，实用性较差，纯属自娱自乐。<span class="nb">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">\cventry</span><span class="nb">{</span>2013<span class="nb">}</span>
+</span><span class='line'><span class="nb">{</span>EnglishWordFinder<span class="nb">}</span>
+</span><span class='line'><span class="nb">{</span>C++<span class="nb">}</span>
+</span><span class='line'><span class="nb">{</span>课程项目<span class="nb">}{}</span>
+</span><span class='line'><span class="nb">{</span>一个英语文章分析工具。主要功能包括词频统计，词性归类，词典查询等，并用C++实现了对每个单词的stemming和lemmatization(类似PythonNLTK中的lemmatize函数)<span class="nb">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">\cventry</span><span class="nb">{</span>2013<span class="nb">}</span>
+</span><span class='line'><span class="nb">{</span>基于Cocos2d-x的手机游戏<span class="nb">}</span>
+</span><span class='line'><span class="nb">{</span>C++<span class="nb">}</span>
+</span><span class='line'><span class="nb">{</span>课程项目<span class="nb">}{}</span>
+</span><span class='line'><span class="nb">{</span>基于跨平台的开源游戏引擎Cocos2d-x与C++实现的打飞机小游戏，在Windows下利用Visual Studio开发并移植到iOS, Android和Windows Phone三个平台。<span class="nb">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">\cventry</span><span class="nb">{</span>2012<span class="nb">}</span>
+</span><span class='line'><span class="nb">{</span>在线问卷调查系统<span class="nb">}</span>
+</span><span class='line'><span class="nb">{</span>C<span class="k">\#</span> SQL Server<span class="nb">}</span>
+</span><span class='line'><span class="nb">{</span>课程项目<span class="nb">}{}</span>
+</span><span class='line'><span class="nb">{</span>这是一个基于ASP.NET的在线问卷调查系统。我独立实现了后端自动生成问卷的功能。<span class="nb">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">\section</span><span class="nb">{</span>校园经历<span class="nb">}</span> <span class="c">% (fold)</span>
+</span><span class='line'><span class="k">\cventry</span><span class="nb">{</span>2011--2012<span class="nb">}</span>
+</span><span class='line'><span class="nb">{</span>广东外语外贸大学学生资讯中心记者<span class="nb">}{}{}{}{</span>参加社团期间负责过几场重要的人物专访，多篇文章在校园媒体网站“广外地带”发布。<span class="nb">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">\closesection</span><span class="nb">{}</span>                   <span class="c">% needed to renewcommands</span>
+</span><span class='line'><span class="k">\renewcommand</span><span class="nb">{</span><span class="k">\listitemsymbol</span><span class="nb">}{</span>-<span class="nb">}</span> <span class="c">% change the symbol for lists</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">% 来自BibTeX文件但不使用multibib包的出版物</span>
+</span><span class='line'><span class="c">%\renewcommand*{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}% BibTeX的数字标签</span>
+</span><span class='line'><span class="k">\nocite</span><span class="nb">{</span>*<span class="nb">}</span>
+</span><span class='line'><span class="k">\bibliographystyle</span><span class="nb">{</span>plain<span class="nb">}</span>
+</span><span class='line'><span class="k">\bibliography</span><span class="nb">{</span>publications<span class="nb">}</span>                    <span class="c">% &#39;publications&#39; 是BibTeX文件的文件名</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">% 来自BibTeX文件并使用multibib包的出版物</span>
+</span><span class='line'><span class="c">%\section{出版物}</span>
+</span><span class='line'><span class="c">%\nocitebook{book1,book2}</span>
+</span><span class='line'><span class="c">%\bibliographystylebook{plain}</span>
+</span><span class='line'><span class="c">%\bibliographybook{publications}               % &#39;publications&#39; 是BibTeX文件的文件名</span>
+</span><span class='line'><span class="c">%\nocitemisc{misc1,misc2,misc3}</span>
+</span><span class='line'><span class="c">%\bibliographystylemisc{plain}</span>
+</span><span class='line'><span class="c">%\bibliographymisc{publications}               % &#39;publications&#39; 是BibTeX文件的文件名</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">\end</span><span class="nb">{</span>document<span class="nb">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="c">%% 文件结尾 `template-zh.tex&#39;.</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>编译生成pdf简历</h2>
+
+<p>打开终端，进入tex文件所在的目录, 然后执行xelatex命令进行编译。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd ~/Desktop
+</span><span class='line'>xelatex resume-zn.tex</span></code></pre></td></tr></table></div></figure>
+
+
+<p>不出意外的话名为resume-zn.pdf的简历就成功生成了。Done！
+读者可以重复以上步骤修改到满意为止。我的简历模版效果如图：
+<img src="/images/resume.png"></p>
+
+    
+      <div class="sharing">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4daee9911f9dfcb4"></script>
+</div>
+    
+  
+  
+  <footer class="meta">
+    
+
+
+
+	<div class="tags"><a class='category' href='/blog/categories/latex/'>latex</a></div>
+
+    
+  </footer>
+  
+</div>
+</article></div>
+	<footer id="footer" class="inner"><div class="social alignright">
+	<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+</div>
+<div class="clearfix"></div>
+</footer>
+	
+
+</body>
+</html>
