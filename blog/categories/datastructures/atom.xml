@@ -4,7 +4,7 @@
   <title><![CDATA[Category: datastructures | Fengyu Cai]]></title>
   <link href="http://www.caifengyu.net/blog/categories/datastructures/atom.xml" rel="self"/>
   <link href="http://www.caifengyu.net/"/>
-  <updated>2017-01-04T07:01:28+08:00</updated>
+  <updated>2017-01-04T16:28:36+08:00</updated>
   <id>http://www.caifengyu.net/</id>
   <author>
     <name><![CDATA[Fengyu]]></name>
@@ -20,11 +20,9 @@
     <id>http://www.caifengyu.net/blog/2014/02/16/rbtree</id>
     <content type="html"><![CDATA[<p>最近看学习CLRS “红黑树”一章的时候遇到了麻烦：虽然作者给出了详细的介绍
 和严谨的证明，但是看完后仍然是一头雾水，而且400多行伪代码也是不小的记
-忆负担。无意中发现刘未鹏的博客文章<a href="http://mindhacks.cn/2008/07/07/the-importance-of-knowing-why/">知其所以然（以算法学习为例）</a>也提到了这个问题，于是找来红黑树发明者Sedgewick的PPT讲解，终于醍醐
-灌顶：原来红黑树背后的idea是2-3-4树，最简洁又相对高效的实现是Sedgewick
-讲的Left-leaning RB Tree。PPT戳这里<a href="http://www.cs.princeton.edu/~rs/talks/LLRB/LLRB.pdf">LLRB</a></p>
+忆负担。无意中发现刘未鹏的博客文章<a href="http://mindhacks.cn/2008/07/07/the-importance-of-knowing-why/">知其所以然（以算法学习为例）</a>也提到了这个问题，于是找来红黑树发明者Sedgewick的PPT讲解，才明白原来红黑树背后的idea是2-3-4树，一种简洁又相对高效的实现是Sedgewick讲的Left-leaning RB Tree。PPT戳这里<a href="http://www.cs.princeton.edu/~rs/talks/LLRB/LLRB.pdf">LLRB</a></p>
 
-<p>我用C++实现的红黑树如下，共有150行代码。如有错误欢迎指出：
+<p>我用C++实现的红黑树如下，有错误欢迎指出：
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
